@@ -1,0 +1,74 @@
+{
+  "name": "boilerplate-local-jwt-auth",
+  "version": "0.1.1",
+  "description": "Local Passport strategy boilerplate using libsodium and JWTs",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "nodemon --watch server & webpack --watch",
+    "knex": "knex",
+    "postinstall": "knex migrate:latest && webpack",
+    "start": "node server",
+    "test": "ava",
+    "test:watch": "ava --watch"
+  },
+  "author": "EDA",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "body-parser": "^1.16.0",
+    "connect-ensure-login": "^0.1.1",
+    "connect-flash": "^0.1.1",
+    "connect-session-knex": "^1.3.1",
+    "dotenv": "^4.0.0",
+    "eslint": "^3.14.0",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-react": "^6.10.3",
+    "eslint-plugin-standard": "^2.0.1",
+    "express": "^4.14.0",
+    "express-force-ssl": "^0.3.2",
+    "express-handlebars": "^3.0.0",
+    "express-jwt": "^5.1.0",
+    "express-session": "^1.15.0",
+    "jsonwebtoken": "^7.4.1",
+    "jwt-decode": "^2.2.0",
+    "knex": "^0.12.6",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "react-redux": "^4.4.5",
+    "react-router-dom": "^4.1.1",
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.2.0",
+    "sodium": "^2.0.1",
+    "superagent": "^3.5.2",
+    "webpack": "^2.6.1"
+  },
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "nodemon": "^1.11.0",
+    "sqlite3": "^3.1.8",
+    "supertest": "^2.0.1",
+    "webpack-livereload-plugin": "^0.11.0"
+  },
+  "ava": {
+    "require": [
+      "dotenv/config"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-3"
+    ]
+  },
+  "engines": {
+    "node": ">=7.0.0"
+  }
+}

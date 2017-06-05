@@ -1,0 +1,15 @@
+{
+  "extends": ["standard", "eslint:recommended", "plugin:react/recommended"],
+  "installedESLint": true,
+  "plugins": [
+    "standard",
+    "promise"
+  ],
+  "globals": {
+    "fetch": true,
+    "localStorage": true
+  },
+  "rules": {
+    "react/prop-types": "off"
+  }
+}
