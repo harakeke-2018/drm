@@ -19,7 +19,7 @@ npm start
 
 The session and JWT secrets are loaded from environment variables.
 
-Password hashing modules often have a _native_ component: they're written in lower-level languages like C or C++ with a JavaScript _wrapper_. This means they can be trickier to install on some platforms. There are some instructions for how to obtain the necessary tools to build native modules [here](https://github.com/dev-academy-programme/orientation/tree/master/3-installation/node.md).
+Password hashing modules often have a _native_ component: they're written in lower-level languages like C or C++ with a JavaScript _wrapper_. This means they can be trickier to install on some platforms. There are some instructions for how to obtain the necessary tools to build native modules [here](https://github.com/dev-academy-programme/orientation/blob/master/installation/node.md). If you're using a Mac, be sure you have [XCode](https://itunes.apple.com/us/app/xcode/id497799835) and [Homebrew](https://brew.sh) installed and run `brew install libtool autoconf automake`.
 
 To use the API, you'll first need to register a user with the web form. Then hit the `https://localhost:3000/api/v1/authenticate` endpoint with a POST request containing something like:
 
