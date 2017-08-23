@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "nodemon --watch server & webpack --watch",
     "knex": "knex",
-    "postinstall": "knex migrate:latest && webpack",
+    "migrate": "[ \"$NODE_ENV\" = \"production\" ] && exit 0; knex migrate:latest",
+    "migrate:prod": "knex migrate:latest",
+    "postinstall": "webpack && npm run migrate",
     "start": "node server",
     "test": "ava",
     "test:watch": "ava --watch"
@@ -39,6 +41,7 @@
     "knex": "^0.12.6",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "pg": "^7.2.0",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-redux": "^4.4.5",
