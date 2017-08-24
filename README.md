@@ -15,6 +15,17 @@ npm start
 * Go to [http://localhost:3000](http://localhost:3000) to see the site.
 
 
+## Deploying to Heroku
+
+The database migration doesn't run automatically in `postinstall` on production builds, so you'll need to invoke it manually. Always a good idea to make sure you don't accidentally nuke your production database!
+
+```shell
+heroku login
+heroku create
+heroku addons:create heroku-postgresql:hobby-dev
+heroku run npm run migrate:prod
+```
+
 ## More information
 
 The session and JWT secrets are loaded from environment variables.
