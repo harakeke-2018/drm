@@ -25,7 +25,7 @@ export function registerError (message) {
 
 export function registerUser (creds) {
   return dispatch => {
-    // We dispatch requestLogin to kickoff the call to the API
+    // We dispatch requestRegister to kickoff the call to the API
     dispatch(requestRegister(creds))
 
     return request('post', '/register', creds)
