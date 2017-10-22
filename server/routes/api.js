@@ -25,7 +25,7 @@ function register (req, res, next) {
       }
       // req.login() can be used to automatically log the user in after registering
       users.create(req.body.username, req.body.password)
-        .then(next)
+        .then(() => next())
     })
     .catch(err => {
       res.status(400).send({ message: err.message })
