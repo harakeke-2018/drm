@@ -36,6 +36,7 @@ function getById (id, testDb) {
   return connection('users')
     .select('id', 'username')
     .where('id', id)
+    .first()
 }
 
 function getByName (username, testDb) {
@@ -43,4 +44,5 @@ function getByName (username, testDb) {
   return connection('users')
     .select()
     .where('username', username)
+    .first()
 }

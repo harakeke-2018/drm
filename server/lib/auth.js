@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken')
-const passport = require('passport')
 
 const crypto = require('./crypto')
 const users = require('./users')
@@ -24,42 +23,33 @@ function handleError (err, req, res, next) {
 }
 
 function issueJwt (req, res, next) {
-  passport.authenticate(
-    'local',
-    (err, user, info) => {
-      if (err) {
-        return res.status(500).json({
-          message: 'Authentication failed due to a server error.'
-        })
-      }
-
-      if (!user) {
-        return res.status(403).json({
-          message: 'Authentication failed.',
-          info: info.message
-        })
-      }
-
+  users.getByName(req.body.username)
+    .then(user => {
       const token = createToken(user, process.env.JWT_SECRET)
       res.json({
         message: 'Authentication successful.',
         token
       })
-    }
-  )(req, res, next)
+    })
+    .catch(err => {
+      return res.status(403).json({
+        message: 'Authentication failed.',
+        info: err.message
+      })
+    })
 }
 
 function verify (username, password, done) {
   users.getByName(username)
-    .then(users => {
-      if (users.length === 0) {
+    .then(user => {
+      if (user) {
         return done(null, false, { message: 'Unrecognised user.' })
       }
 
-      const user = users[0]
       if (!crypto.verifyUser(user, password)) {
         return done(null, false, { message: 'Incorrect password.' })
       }
+
       done(null, {
         id: user.id,
         username: user.username
