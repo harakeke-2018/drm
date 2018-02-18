@@ -1,6 +1,6 @@
-const decode = require('jwt-decode')
+import decode from 'jwt-decode'
 
-import { get, set } from './localstorage'
+import {get, set} from './localstorage'
 
 export function isAuthenticated () {
   const token = get('token')

@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
+import {connect} from 'react-redux'
 
-import { registerUser, registerError } from '../actions/register'
+import {registerUser, registerError} from '../actions/register'
 import ErrorMessage from './ErrorMessage'
 
-class RegisterForm extends Component {
-
+class RegisterForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -14,6 +13,7 @@ class RegisterForm extends Component {
       confirm: ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   handleChange (e) {
@@ -24,7 +24,7 @@ class RegisterForm extends Component {
   }
 
   handleClick (event) {
-    const { username, password, confirm } = this.state
+    const {username, password, confirm} = this.state
     if (password !== confirm) {
       this.props.registerError('Passwords do not match!')
       return
@@ -37,7 +37,7 @@ class RegisterForm extends Component {
   }
 
   render () {
-    const { username, password, confirm } = this.state
+    const {username, password, confirm} = this.state
     return (
       <div>
         <p><input name='username' placeholder='Username'
@@ -49,9 +49,7 @@ class RegisterForm extends Component {
         <p><input type='password' name='confirm' placeholder='Confirm'
           onChange={this.handleChange} value={confirm} /></p>
 
-        <button onClick={(e) => this.handleClick(e)}>
-          Register
-        </button>
+        <button onClick={this.handleClick}>Register</button>
 
         <ErrorMessage reducer='auth' />
       </div>

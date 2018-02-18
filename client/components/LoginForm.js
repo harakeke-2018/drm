@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
+import {connect} from 'react-redux'
 
-import { loginUser } from '../actions/login'
+import {loginUser} from '../actions/login'
 import ErrorMessage from './ErrorMessage'
 
-class LoginForm extends Component {
+class LoginForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -23,7 +23,7 @@ class LoginForm extends Component {
   }
 
   handleClick () {
-    const { username, password } = this.state
+    const {username, password} = this.state
     const creds = {
       username: username.trim(),
       password: password.trim()
@@ -34,8 +34,12 @@ class LoginForm extends Component {
   render () {
     return (
       <div>
-        <p><input name='username' onChange={this.handleChange} placeholder='Username' /></p>
-        <p><input type='password' name='password' onChange={this.handleChange} placeholder='Password' /></p>
+        <p><input name='username'
+          placeholder='Username'
+          onChange={this.handleChange} /></p>
+        <p><input type='password' name='password'
+          placeholder='Password'
+          onChange={this.handleChange} /></p>
         <button onClick={this.handleClick}>Login</button>
         <ErrorMessage reducer='auth' />
       </div>

@@ -4,8 +4,8 @@ import {
   QUOTE_FAILURE
 } from '../actions/quote'
 
-import { LOGIN_SUCCESS } from '../actions/login'
-import { LOGOUT_SUCCESS } from '../actions/logout'
+import {LOGIN_SUCCESS} from '../actions/login'
+import {LOGOUT_SUCCESS} from '../actions/logout'
 
 const initialState = {
   isFetching: false,

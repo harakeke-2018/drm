@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
-const Links = ({ active }) => {
+const Links = ({active}) => {
   return (
     <div>
       {active === 'Home' ? 'Home' : <Link to='/'>Home</Link>} | {' '}
@@ -12,4 +12,3 @@ const Links = ({ active }) => {
 }
 
 export default Links
-

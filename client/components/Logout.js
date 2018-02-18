@@ -1,7 +1,7 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 
-import { logoutUser } from '../actions/logout'
+import {logoutUser} from '../actions/logout'
 
 const Logout = (props) => {
   return (

@@ -1,6 +1,6 @@
 import request from '../utils/api'
-import { receiveLogin } from './login'
-import { saveUserToken } from '../utils/auth'
+import {receiveLogin} from './login'
+import {saveUserToken} from '../utils/auth'
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST'
 export const REGISTER_FAILURE = 'REGISTER_FAILURE'

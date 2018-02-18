@@ -1,4 +1,5 @@
-const config = require('../../knexfile')[process.env.NODE_ENV || 'development']
+const environment = process.env.NODE_ENV || 'development'
+const config = require('../../knexfile')[environment]
 const knex = require('knex')(config)
 
 const crypto = require('./crypto')
@@ -7,7 +8,7 @@ module.exports = {
   create,
   exists,
   getById,
-  getByName,
+  getByName
 }
 
 function create (username, password, testDb) {

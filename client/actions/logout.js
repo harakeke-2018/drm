@@ -1,4 +1,4 @@
-import { removeUser } from '../utils/auth'
+import {removeUser} from '../utils/auth'
 
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
@@ -28,4 +28,3 @@ export function logoutUser () {
     dispatch(receiveLogout())
   }
 }
-

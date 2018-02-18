@@ -2,34 +2,59 @@ const bodyParser = require('body-parser')
 const express = require('express')
 const verifyJwt = require('express-jwt')
 
+const crypto = require('../lib/crypto')
 const users = require('../lib/users')
-const auth = require('../lib/auth.js')
+const auth = require('../lib/auth')
 
 const router = express.Router()
 router.use(bodyParser.json())
 
-// This is the only API route that uses local strategy,
-// to check if we can issue a JWT in response to requests.
-router.post('/authenticate', auth.issueJwt)
+router.post('/signin',
+  signIn,
+  auth.issueJwt
+)
 
 router.post('/register',
   register,
   auth.issueJwt
 )
 
+function signIn (req, res, next) {
+  users.getByName(req.body.username)
+    .then(user => {
+      return user || invalidCredentials(res)
+    })
+    .then(user => {
+      return user && crypto.verifyUser(user.hash, req.body.password)
+    })
+    .then(isValid => {
+      return isValid ? next() : invalidCredentials(res)
+    })
+    .catch(() => {
+      res.status(400).send({
+        errorType: 'DATABASE_ERROR'
+      })
+    })
+}
+
 function register (req, res, next) {
   users.exists(req.body.username)
     .then(exists => {
       if (exists) {
-        return res.status(400).send({ message: 'User exists' })
+        return res.status(400).send({message: 'User exists'})
       }
-      // req.login() can be used to automatically log the user in after registering
       users.create(req.body.username, req.body.password)
         .then(() => next())
     })
     .catch(err => {
-      res.status(400).send({ message: err.message })
+      res.status(400).send({message: err.message})
     })
+}
+
+function invalidCredentials (res) {
+  res.status(400).send({
+    errorType: 'INVALID_CREDENTIALS'
+  })
 }
 
 // express-jwt middleware lets us use a function as the secret,
@@ -45,7 +70,7 @@ router.get('/quote',
     secret: getSecret
   }),
   (req, res) => {
-    const response = { message: 'This is a PUBLIC quote.' }
+    const response = {message: 'This is a PUBLIC quote.'}
     if (req.user) {
       response.user = `Your user ID is: ${req.user.id}`
     }

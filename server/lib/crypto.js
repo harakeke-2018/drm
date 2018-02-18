@@ -14,7 +14,7 @@ function getHash (password) {
   )
 }
 
-function verifyUser (user, password) {
+function verifyUser (hash, password) {
   const passwordBuffer = Buffer.from(password, 'utf8')
-  return sodium.crypto_pwhash_str_verify(user.hash, passwordBuffer)
+  return sodium.crypto_pwhash_str_verify(hash, passwordBuffer)
 }

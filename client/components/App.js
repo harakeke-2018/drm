@@ -1,6 +1,7 @@
 import React from 'react'
-import Navbar from './Navbar'
+
 import Quote from './Quote'
+import Navbar from './Navbar'
 
 const App = () => {
   return (

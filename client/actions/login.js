@@ -1,5 +1,5 @@
 import request from '../utils/api'
-import { saveUserToken } from '../utils/auth'
+import {saveUserToken} from '../utils/auth'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -13,7 +13,7 @@ function requestLogin () {
   }
 }
 
-function receiveLogin (user) {
+export function receiveLogin (user) {
   return {
     type: LOGIN_SUCCESS,
     isFetching: false,
@@ -38,7 +38,7 @@ export function loginUser (creds) {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds))
 
-    return request('post', '/authenticate', creds)
+    return request('post', '/signin', creds)
       .then((response) => {
         if (!response.ok) {
           // If there was a problem, we want to

@@ -1,13 +1,13 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { Route, withRouter } from 'react-router-dom'
+import {connect} from 'react-redux'
+import {Route, withRouter} from 'react-router-dom'
 
 import Links from './Links'
 import Logout from './Logout'
 import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm'
 
-const Navbar = ({ isAuthenticated }) => {
+const Navbar = ({isAuthenticated}) => {
   return (
     <nav>
       <div>
@@ -32,9 +32,7 @@ const Navbar = ({ isAuthenticated }) => {
             </div>
           )}
 
-          {isAuthenticated &&
-            <Logout />
-          }
+          {isAuthenticated && <Logout />}
 
           <hr />
         </div>

@@ -1,12 +1,12 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 
 import Loading from './Loading'
 import ErrorMessage from './ErrorMessage'
-import { fetchQuote, fetchSecretQuote } from '../actions/quote'
+import {fetchQuote, fetchSecretQuote} from '../actions/quote'
 
 const Quote = (props) => {
-  const { onQuoteClick, onSecretQuoteClick, quote } = props
+  const {onQuoteClick, onSecretQuoteClick, quote} = props
 
   return (
     <div>
@@ -20,10 +20,7 @@ const Quote = (props) => {
       </div>
 
       <div>
-        {quote &&
-          <p>{quote}</p>
-        }
-
+        {quote && <p>{quote}</p>}
         <Loading reducer='quote' />
         <ErrorMessage reducer='quote' />
       </div>
