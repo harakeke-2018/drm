@@ -94,4 +94,7 @@ router.get('/secret', (req, res) => {
   })
 })
 
+// getAllStockByOrgId
+router.get()
+
 module.exports = router
