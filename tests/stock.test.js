@@ -24,7 +24,16 @@ test('getStock returns all potential stock items', () => {
     })
 })
 
+test.skip('getTeamStockByTeamId returns all potential stock items', () => {
+  return stock.getTeamStockByTeamId(testDb)
+    .then(stock => {
+      expect(stock.length).toBe(3)
+    })
+})
+
 // test('receiveItems', () => {
 //   return stock.receiveItems(1, 1, testDb)
-//   .then(stock => {})
+//   .then(stock => {
+//     expect(stock)
+//   })
 // })
