@@ -1,18 +1,11 @@
 import React from 'react'
 
-// import Quote from './Quote'
-import LoginForm from './LoginForm'
-// import Navbar from './Navbar'
+import Home from './Home'
 
 const App = () => {
   return (
     <div>
-
-      <LoginForm />
-      {/* <Navbar /> */}
-      {/* <div className='quote'>
-        <Quote />
-      </div> */}
+      <Home />
     </div>
   )
 }
