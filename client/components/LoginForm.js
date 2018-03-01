@@ -33,7 +33,8 @@ class LoginForm extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className="container">
+        <h1>Disaster Resource Management</h1>
         <p><input name='username'
           placeholder='Username'
           onChange={this.handleChange} /></p>
