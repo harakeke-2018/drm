@@ -2,7 +2,7 @@ import React from 'react'
 
 // import Quote from './Quote'
 import LoginForm from './LoginForm'
-import Navbar from './Navbar'
+// import Navbar from './Navbar'
 
 const App = () => {
   return (
