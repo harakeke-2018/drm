@@ -24,16 +24,23 @@ test('getStock returns all potential stock items', () => {
     })
 })
 
-test.skip('getTeamStockByTeamId returns all potential stock items', () => {
-  return stock.getTeamStockByTeamId(testDb)
-    .then(stock => {
-      expect(stock.length).toBe(3)
+test('getTeamStockByTeamId returns a teams items', () => {
+  return stock.getTeamStockByTeamId(1, testDb)
+    .then(team => {
+      expect(team[0].quantity).toBe(30)
     })
 })
 
-// test('receiveItems', () => {
-//   return stock.receiveItems(1, 1, testDb)
-//   .then(stock => {
-//     expect(stock)
-//   })
-// })
+test('getLastUpdate returns the last update from a team', () => {
+  return stock.getLastUpdate(1, testDb)
+    .then(lastUpdate => {
+      expect(lastUpdate[0].last_update).toBe('Monday, 29 February, 2016')
+    })
+})
+
+test('receiveItems', () => {
+  return stock.receiveItems(2, 20, testDb)
+    .then(success => {
+      expect(success).toBeTruthy()
+    })
+})
