@@ -2,7 +2,7 @@ const request = require('supertest')
 
 const app = require('../server/server')
 
-test('Authenticate complains about no credentials', () => {
+test.skip('Authenticate complains about no credentials', () => {
   return request(app)
     .post('/api/v1/authenticate')
     .send({})
@@ -12,7 +12,7 @@ test('Authenticate complains about no credentials', () => {
     })
 })
 
-test('/api/v1/quote responds without token', () => {
+test.skip('/api/v1/quote responds without token', () => {
   return request(app)
     .get('/api/v1/quote')
     .then(res => {
@@ -20,7 +20,7 @@ test('/api/v1/quote responds without token', () => {
     })
 })
 
-test("/api/v1/secret 403's without token", () => {
+test.skip("/api/v1/secret 403's without token", () => {
   return request(app)
     .get('/api/v1/secret')
     .expect(403)
