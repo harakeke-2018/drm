@@ -3,21 +3,21 @@ import React from 'react'
 import Log from './Log'
 
 class StockItem extends React.Component {
-    constructor (props) {
-        super(props)
-        this.state = {
-            logIsVisible: false,
-            logItems: [{last_update: '29/1/2018', changed: -25},
-            {last_update: '1/1/2018', changed: 50},
-            {last_update: '29/11/2017', changed: -500},
-            {last_update: '1/1/2000', changed: 500}]
-        }
-        this.toggleLog = this.toggleLog.bind(this)
+  constructor (props) {
+    super(props)
+    this.state = {
+      logIsVisible: false,
+      logItems: [{last_update: '29/1/2018', changed: -25},
+        {last_update: '1/1/2018', changed: 50},
+        {last_update: '29/11/2017', changed: -500},
+        {last_update: '1/1/2000', changed: 500}]
     }
+    this.toggleLog = this.toggleLog.bind(this)
+  }
 
-    toggleLog () {
-        this.setState({logIsVisible: !this.state.logIsVisible})
-    }
+  toggleLog () {
+    this.setState({logIsVisible: !this.state.logIsVisible})
+  }
 
     render() {
         return (
@@ -49,4 +49,4 @@ class StockItem extends React.Component {
     }
 }
 
-export default StockItem 
+export default StockItem
