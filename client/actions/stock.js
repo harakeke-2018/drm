@@ -20,7 +20,7 @@ export const doDeliverItems = (qty) => {
 
 export function requestItems () {
   return (dispatch) => {
-    request('get', '/stock/1')
+    request('get', '/stock')
       .then(res => {
         dispatch(receiveItems(res.body))
       })

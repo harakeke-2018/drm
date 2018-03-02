@@ -82,6 +82,16 @@ router.get('/quote',
   }
 )
 
+router.get('/stock', (req, res) => {
+  stock.getStock()
+    .then(item => {
+      res.json(item)
+    })
+    .catch(err => {
+      res.status(400).send({message: err.message})
+    })
+})
+
 // Protect all routes beneath this point
 router.use(
   verifyJwt({

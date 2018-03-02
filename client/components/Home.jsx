@@ -2,16 +2,22 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {requestItems} from '../actions/stock'
 
-import LoginForm from './LoginForm'
+// import LoginForm from './LoginForm'
 import StockItem from './StockItem'
 
 class Home extends React.Component {
   constructor (props) {
     super(props)
+    this.state = {
+    }
   }
 
   componentDidMount () {
-    this.props.loadItems()
+    this.loadItems()
+  }
+
+  loadItems () {
+    this.props.dispatch(requestItems())
   }
 
   render () {
@@ -26,7 +32,7 @@ class Home extends React.Component {
           })}
         </div>
 
-        <LoginForm />
+        {/* <LoginForm /> */}
       </div>
     )
   }
@@ -39,12 +45,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loadItems: () => {
-      return dispatch(requestItems())
-    }
-  }
-}
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     loadItems: () => {
+//       return dispatch(requestItems())
+//     }
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps)(Home)
