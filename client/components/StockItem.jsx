@@ -22,10 +22,13 @@ class StockItem extends React.Component {
     render() {
         return (
             <div className='row'>
-                <div className='twelve columns'>
-                    <p className='six columns'>{this.props.item.type}</p>
+                <div className='row' style={{textAlign: 'right'}}>
+                    <p className='three columns'>{this.props.item.type}</p>
+                    <p className='one columns' style={{textAlign: 'right', fontWeight: 'bold'}}>{this.props.item.quantity}</p>
                     <button className='two columns' type='button' onClick={this.toggleLog}>{this.state.logIsVisible ? 'Hide' : 'Log'}</button>
-                    <p className='four columns' style={{textAlign: 'right'}}>Stock: {this.props.item.quantity}</p>
+                    <div className='three columns'></div>
+                    <button className='one column'>+</button>
+                    <button className='one column'>-</button>
                 </div>
 
                 <div className='twelve columns'>
