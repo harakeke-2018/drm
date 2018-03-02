@@ -10,7 +10,7 @@ class StockItem extends React.Component {
       logItems: [{last_update: '29/1/2018', changed: -25},
         {last_update: '1/1/2018', changed: 50},
         {last_update: '29/11/2017', changed: -500},
-        {last_update: '1/1/2000', changed: 500}]
+        {last_update: '1/1/2000', changed: 999999}]
     }
     this.toggleLog = this.toggleLog.bind(this)
   }
