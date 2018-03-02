@@ -82,6 +82,16 @@ router.get('/quote',
   }
 )
 
+router.get('/stock', (req, res) => {
+  stock.getStock()
+    .then(item => {
+      res.json(item)
+    })
+    .catch(err => {
+      res.status(400).send({message: err.message})
+    })
+})
+
 // Protect all routes beneath this point
 router.use(
   verifyJwt({
@@ -92,8 +102,10 @@ router.use(
 
 // get all stocks of a team
 router.get('/stock/:id', (req, res) => {
-  stock.getTeamStockByTeamId(req.params.id)
+  const teamId = req.params.id
+  stock.getTeamStockByTeamId(teamId)
     .then(stocks => {
+      console.log(stocks)
       res.json(stocks)
     })
     .catch(err => {
