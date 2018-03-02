@@ -24,6 +24,13 @@ test('getStock returns all potential stock items', () => {
     })
 })
 
+test('getTeams can return a list of all teams', () => {
+  return stock.getTeams(testDb)
+    .then(teams => {
+      expect(teams[1].location).toBe('Wellington')
+    })
+})
+
 test('getTeamStockByTeamId returns a teams items', () => {
   return stock.getTeamStockByTeamId(1, testDb)
     .then(team => {
@@ -38,9 +45,23 @@ test('getLastUpdate returns the last update from a team', () => {
     })
 })
 
-test('receiveItems', () => {
+test('receiveItems can successfully update an existing row', () => {
   return stock.receiveItems(2, 20, testDb)
     .then(success => {
       expect(success).toBeTruthy()
+    })
+})
+
+test('deliverItems can successfully update an existing row', () => {
+  return stock.deliverItems(1, 20, testDb)
+    .then(success => {
+      expect(success).toBeTruthy()
+    })
+})
+
+test('getLogsByTeamItemId can get logs for a team', () => {
+  return stock.getLogsByTeamItemId(2, testDb)
+    .then(log => {
+      expect(log[0].date).toBe('Thursday 1 March 2018')
     })
 })

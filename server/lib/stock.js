@@ -25,16 +25,6 @@ function getTeams (testDb) {
     .select()
 }
 
-// function getTeamStockByTeamId (teamId, testDb) {
-//   const connection = testDb || knex
-//   return connection('team_stock')
-//     .join('log', 'team_stock.id', 'log.team_stock_id')
-//     .where('team_stock.team_id', teamId)
-//     .orderBy('log.date', 'desc')
-//     .select()
-//     .first()
-// }
-
 function getTeamStockByTeamId (teamId, testDb) {
   const connection = testDb || knex
   return connection('team_stock')
