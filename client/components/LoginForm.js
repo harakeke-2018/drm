@@ -35,7 +35,7 @@ class LoginForm extends React.Component {
     return (
       <div className="container">
         <div className="wrapper">
-          <form action="#" name="Login_Form" className="form-signin">
+          <div name="Login_Form" className="form-signin">
             <h1 className="form-signin-heading">Disaster Resource Management</h1>
             <input className="form-control" name='username'
               placeholder='Username'
@@ -45,7 +45,7 @@ class LoginForm extends React.Component {
               onChange={this.handleChange} />
             <button className="btn btn-lg btn-primary btn-block" onClick={this.handleClick}>Login</button>
             <ErrorMessage reducer='auth' />
-          </form>
+          </div>
         </div>
       </div>
     )

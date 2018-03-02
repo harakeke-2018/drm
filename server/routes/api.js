@@ -5,9 +5,13 @@ const verifyJwt = require('express-jwt')
 const crypto = require('../lib/crypto')
 const users = require('../lib/users')
 const auth = require('../lib/auth')
+const stock = require('../lib/stock')
 
 const router = express.Router()
 router.use(bodyParser.json())
+// router.use(bodyParser.urlencoded({
+//   extended: false
+// }))
 
 router.post('/signin',
   signIn,
@@ -85,6 +89,58 @@ router.use(
   }),
   auth.handleError
 )
+
+// get all stocks of a team
+router.get('/stock/:id', (req, res) => {
+  stock.getTeamStockByTeamId(req.params.id)
+    .then(stocks => {
+      res.json(stocks)
+    })
+    .catch(err => {
+      res.status(400).send({message: err.message})
+    })
+})
+
+// get all logs of stock items of a team
+router.get('/logs/:id', (req, res) => {
+  stock.getLogsByTeamItemId(req.params.id)
+    .then(logs => {
+      res.json(logs)
+    })
+    .catch(err => {
+      res.status(400).send({message: err.message})
+    })
+})
+
+// increment quantity of a item
+router.post('/increment', (req, res) => {
+  const teamStockId = req.body.id
+  stock.receiveItems(teamStockId, req.body.quantity)
+    .then(() => {
+      stock.getItemQtyByTeamStockId(teamStockId)
+        .then(newQty => {
+          res.json({quantity: newQty[0]})
+        })
+    })
+    .catch(err => {
+      res.status(400).send({message: err.message})
+    })
+})
+
+// decrement quantity of a item
+router.post('/decrement', (req, res) => {
+  const teamStockId = req.body.id
+  stock.deliverItems(teamStockId, req.body.quantity)
+    .then(() => {
+      stock.getItemQtyByTeamStockId(teamStockId)
+        .then(newQty => {
+          res.json({quantity: newQty[0]})
+        })
+    })
+    .catch(err => {
+      res.status(400).send({message: err.message})
+    })
+})
 
 // These routes are protected
 router.get('/secret', (req, res) => {
