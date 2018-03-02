@@ -92,8 +92,10 @@ router.use(
 
 // get all stocks of a team
 router.get('/stock/:id', (req, res) => {
-  stock.getTeamStockByTeamId(req.params.id)
+  const teamId = req.params.id
+  stock.getTeamStockByTeamId(teamId)
     .then(stocks => {
+      console.log(stocks)
       res.json(stocks)
     })
     .catch(err => {
