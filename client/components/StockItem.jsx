@@ -8,7 +8,7 @@ class StockItem extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      logIsVisible: false,
+      logIsVisible: true,
       logItems: [{last_update: '29/1/2018', changed: -25},
         {last_update: '1/1/2018', changed: 50},
         {last_update: '29/11/2017', changed: -500},

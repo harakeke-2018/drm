@@ -1,4 +1,6 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {requestItems} from '../actions/stock'
 
 // import Quote from './Quote'
 import LoginForm from './LoginForm'
@@ -31,7 +33,7 @@ class Home extends React.Component {
 
         <div style={{width: 800}}>
 
-          {this.state.items.map((item, id) => {
+          {this.props.items.map((item, id) => {
             return <div key={id}>
               <StockItem item={item} />
             </div>
@@ -49,4 +51,19 @@ class Home extends React.Component {
   }
 }
 
-export default Home
+const mapStateToProps = (state) => {
+  return {
+    items: state.stock.items,
+    latestQty: state.stock.latestQty
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadItems: teamId => {
+      return dispatch(requestItems(teamId))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
