@@ -26,11 +26,9 @@ class Home extends React.Component {
     render() {
         return (
             <div>
-                <h1>Hello</h1>
-
                 {/* Table Div */}
 
-                <div style={{width: 800}}>
+                <div style={{width: '80%', margin: 'auto'}}>
 
                     {this.state.items.map((item, id) => {
                         return <div key={id}>
