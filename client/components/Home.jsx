@@ -30,8 +30,7 @@ class Home extends React.Component {
       <div>
         <div style={{ width: '50%', margin: 'auto' }}>
           <h2 style={{ textAlign: 'center' }}>Stock List</h2>
-          {this.props.items.quantity}
-          {this.state.items.map((item, id) => {
+          {this.props.items.map((item, id) => {
             return <div key={id}>
               <StockItem item={item} />
             </div>

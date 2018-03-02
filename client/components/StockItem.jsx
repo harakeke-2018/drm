@@ -1,6 +1,4 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {requestItems} from '../actions/stock'
 
 import Log from './Log'
 
@@ -51,19 +49,4 @@ class StockItem extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    items: state.stock.items,
-    latestQty: state.stock.latestQty
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loadItems: teamId => {
-      return dispatch(requestItems(teamId))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(StockItem)
+export default StockItem
