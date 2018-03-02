@@ -1,8 +1,7 @@
 import React from 'react'
 
 class Log extends React.Component {
-
-  render() {
+  render () {
     return (
       <div className='twelve columns'>
         <p className='ten columns'>{this.props.item.last_update}</p>
