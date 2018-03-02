@@ -19,21 +19,34 @@ class StockItem extends React.Component {
     this.setState({logIsVisible: !this.state.logIsVisible})
   }
 
-  render () {
-    return (
-      <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <p>{this.props.item.type}</p>
-          <button type='button' onClick={this.toggleLog}>Log</button>
-          <p>Stock: {this.props.item.quantity}</p>
-        </div>
-        {this.state.logIsVisible ? this.state.logItems.map((logItem, id) => {
-          return <Log key={id} item={logItem} />
-        })
-          : null}
-      </div>
-    )
-  }
+    render() {
+        return (
+            <div className='row'>
+                <div className='row' style={{textAlign: 'right'}}>
+                    <p className='three columns'>{this.props.item.type}</p>
+                    <p className='one columns' style={{textAlign: 'right', fontWeight: 'bold'}}>{this.props.item.quantity}</p>
+                    <button className='two columns' type='button' onClick={this.toggleLog}>{this.state.logIsVisible ? 'Hide' : 'Log'}</button>
+                    <div className='three columns'></div>
+                    <button className='one column'>+</button>
+                    <button className='one column'>-</button>
+                </div>
+
+                <div className='twelve columns'>
+                {this.state.logIsVisible ? (<div>
+                            <h5 className='six columns'>Date</h5>
+                            <h5 className='six columns' style={{textAlign: 'right'}}>Stock Change</h5>
+                        </div>)
+                        : null}
+                {this.state.logIsVisible ? this.state.logItems.map((logItem, id) => {
+                    return <div key={id}>
+                        <Log item={logItem} />
+                    </div>
+                }) 
+                    : null}
+                </div>
+            </div>
+        )
+    }
 }
 
 export default StockItem
