@@ -33,15 +33,20 @@ class LoginForm extends React.Component {
 
   render () {
     return (
-      <div>
-        <p><input name='username'
-          placeholder='Username'
-          onChange={this.handleChange} /></p>
-        <p><input type='password' name='password'
-          placeholder='Password'
-          onChange={this.handleChange} /></p>
-        <button onClick={this.handleClick}>Login</button>
-        <ErrorMessage reducer='auth' />
+      <div className="container">
+        <div className="wrapper">
+          <div name="Login_Form" className="form-signin">
+            <h1 className="form-signin-heading">Disaster Resource Management</h1>
+            <input className="form-control" name='username'
+              placeholder='Username'
+              onChange={this.handleChange} />
+            <input className="form-control" type='password' name='password'
+              placeholder='Password'
+              onChange={this.handleChange} />
+            <button className="btn btn-lg btn-primary btn-block" onClick={this.handleClick}>Login</button>
+            <ErrorMessage reducer='auth' />
+          </div>
+        </div>
       </div>
     )
   }

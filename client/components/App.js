@@ -1,17 +1,11 @@
 import React from 'react'
 
-import Quote from './Quote'
-import Navbar from './Navbar'
+import Home from './Home'
 
 const App = () => {
   return (
     <div>
-      <h1>Quotes</h1>
-
-      <Navbar />
-      <div className='quote'>
-        <Quote />
-      </div>
+      <Home />
     </div>
   )
 }
