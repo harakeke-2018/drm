@@ -4,7 +4,9 @@ const knex = require('knex')(config)
 
 module.exports = {
   getStock,
+  getTeams,
   getTeamStockByTeamId,
+  getLastUpdate,
   receiveItems,
   deliverItems,
   getLogsByTeamItemId
@@ -17,28 +19,42 @@ function getStock (testDb) {
     .select()
 }
 
+function getTeams (testDb) {
+  const connection = testDb || knex
+  return connection('team')
+    .select()
+}
+
 function getTeamStockByTeamId (teamId, testDb) {
   const connection = testDb || knex
   return connection('team_stock')
-    .join('log', 'team_stock.id', 'log.team_stock_id')
     .where('team_stock.team_id', teamId)
-    .orderBy('log.date', 'desc')
     .select()
-    .first()
 }
+
+function getLastUpdate (teamId, testDb) {
+  const connection = testDb || knex
+  return connection('team_stock')
+    .where('team_stock.team_id', teamId)
+    .select('last_update')
+}
+
+// increasing the qty of a stock item
 
 function receiveItems (teamStockId, qty, testDb) {
   const connection = testDb || knex
   return connection('team_stock')
     .where('team_stock.id', teamStockId)
-    .increment('team_stock.quantity', qty)
+    .increment('quantity', qty)
 }
+
+// deleting the qty of a stock item
 
 function deliverItems (teamStockId, qty, testDb) {
   const connection = testDb || knex
   return connection('team_stock')
     .where('team_stock.id', teamStockId)
-    .decrement('team_stock.quantity', qty)
+    .decrement('quantity', qty)
 }
 
 function getLogsByTeamItemId (teamItemId, testDb) {
