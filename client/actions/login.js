@@ -50,6 +50,7 @@ export function loginUser (creds) {
           const userInfo = saveUserToken(response.body.token)
           // Dispatch the success action
           dispatch(receiveLogin(userInfo))
+          return Promise.resolve()
         }
       }).catch(err => dispatch(loginError(err.response.body.message)))
   }
