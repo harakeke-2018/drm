@@ -48,7 +48,7 @@ function receiveItems (teamStockId, qty, testDb) {
     .increment('quantity', qty)
 }
 
-// deleting the qty of a stock item
+// decreasing the qty of a stock item
 
 function deliverItems (teamStockId, qty, testDb) {
   const connection = testDb || knex
