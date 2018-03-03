@@ -1,4 +1,6 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {deliverItems} from '../actions/stock'
 
 import Log from './Log'
 
@@ -13,10 +15,16 @@ class StockItem extends React.Component {
         {last_update: '1/1/2000', changed: 500}]
     }
     this.toggleLog = this.toggleLog.bind(this)
+    this.decrementItems = this.decrementItems.bind(this)
   }
 
   toggleLog () {
     this.setState({logIsVisible: !this.state.logIsVisible})
+  }
+
+  decrementItems () {
+    console.log('hi')
+    this.props.dispatch(deliverItems(4, 7))
   }
 
   render () {
@@ -28,7 +36,7 @@ class StockItem extends React.Component {
           <button className='two columns' type='button' onClick={this.toggleLog}>{this.state.logIsVisible ? 'Hide' : 'Log'}</button>
           <div className='three columns'></div>
           <button className='one column'>+</button>
-          <button className='one column'>-</button>
+          <button className='one column' onClick={this.decrementItems}>-</button>
         </div>
 
         <div className='twelve columns'>
@@ -49,4 +57,11 @@ class StockItem extends React.Component {
   }
 }
 
-export default StockItem
+const mapStateToProps = (state) => {
+  return {
+    items: state.stock.items,
+    latestQty: state.stock.latestQty
+  }
+}
+
+export default connect(mapStateToProps)(StockItem)

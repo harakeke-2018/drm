@@ -119,7 +119,7 @@ router.post('/increment', (req, res) => {
   const teamStockId = req.body.id
   stock.receiveItems(teamStockId, req.body.quantity)
     .then(() => {
-      stock.getItemQtyByTeamStockId(teamStockId)
+      stock.getItemQty(teamStockId)
         .then(newQty => {
           res.json({quantity: newQty[0]})
         })
@@ -134,13 +134,13 @@ router.post('/decrement', (req, res) => {
   const teamStockId = req.body.id
   stock.deliverItems(teamStockId, req.body.quantity)
     .then(() => {
-      stock.getItemQtyByTeamStockId(teamStockId)
-        .then(newQty => {
-          res.json({quantity: newQty[0]})
+      stock.getItemQty(teamStockId)
+        .then(decremented => {
+          res.json({quantity: decremented[0]})
         })
-    })
-    .catch(err => {
-      res.status(400).send({message: err.message})
+        .catch(err => {
+          res.status(400).send({message: err.message})
+        })
     })
 })
 
