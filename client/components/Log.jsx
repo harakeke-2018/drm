@@ -3,10 +3,10 @@ import React from 'react'
 class Log extends React.Component {
   render () {
     return (
-      <div className='twelve columns'>
-        <p className='ten columns'>{this.props.item.last_update}</p>
-        {this.props.item.changed < 0 ? <div><p className='one column' style={{ textAlign: 'right', backgroundColor: '#FE8073' }}>{this.props.item.changed}</p><div className='one column'></div></div>
-          : <div><div className='one column'></div><p className='one column' style={{ textAlign: 'right', backgroundColor: '#B2FF97' }}>{this.props.item.changed}</p></div>}
+      <div className='row'>
+        <p className='nine columns' style={{margin: 'auto'}}>{this.props.item.last_update}</p>
+        {this.props.item.changed < 0 ? <div className='three columns'><p style={{margin: 'auto', textAlign: 'right', backgroundColor: '#FEE8E5' }}>{this.props.item.changed}</p></div>
+          : <div className='three columns'><p style={{margin: 'auto', textAlign: 'right', backgroundColor: '#DCFEC8' }}>{this.props.item.changed}</p></div>}
       </div>
     )
   }
