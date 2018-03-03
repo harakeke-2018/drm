@@ -8,6 +8,8 @@ import thunk from 'redux-thunk'
 import reducers from './reducers'
 import App from './components/App'
 
+// import { Route } from '../../../.cache/typescript/2.6/node_modules/@types/react-router'
+
 const store = createStore(reducers, compose(
   applyMiddleware(thunk),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

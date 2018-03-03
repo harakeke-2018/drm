@@ -40,6 +40,7 @@ export function registerUser (creds) {
           const userInfo = saveUserToken(response.body.token)
           // Dispatch the success action
           dispatch(receiveLogin(userInfo))
+          return Promise.resolve()
         }
       }).catch(err => {
         dispatch(registerError(err.response.body.message))
