@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 import {loginUser} from '../actions/login'
 import ErrorMessage from './ErrorMessage'
@@ -44,6 +45,8 @@ class LoginForm extends React.Component {
               placeholder='Password'
               onChange={this.handleChange} />
             <button className="btn btn-lg btn-primary btn-block" onClick={this.handleClick}>Login</button>
+            <label>or</label>
+            <Link to='/register'>Register</Link>
             <ErrorMessage reducer='auth' />
           </div>
         </div>

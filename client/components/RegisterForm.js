@@ -34,24 +34,29 @@ class RegisterForm extends React.Component {
       password: password.trim()
     }
     this.props.registerUser(creds)
+      .then(() => this.props.history.push('/'))
   }
 
   render () {
     const {username, password, confirm} = this.state
     return (
-      <div>
-        <p><input name='username' placeholder='Username'
-          onChange={this.handleChange} value={username} /></p>
+      <div className="container">
+        <div className="wrapper">
+          <div name="Login_Form" className="form-signin">
+            <input className="form-control" name='username' placeholder='Username'
+              onChange={this.handleChange} value={username} />
 
-        <p><input type='password' name='password' placeholder='Password'
-          onChange={this.handleChange} value={password} /></p>
+            <input className="form-control" type='password' name='password' placeholder='Password'
+              onChange={this.handleChange} value={password} />
 
-        <p><input type='password' name='confirm' placeholder='Confirm'
-          onChange={this.handleChange} value={confirm} /></p>
+            <input type='password' name='confirm' placeholder='Confirm'
+              onChange={this.handleChange} value={confirm} />
 
-        <button onClick={this.handleClick}>Register</button>
+            <button className="btn btn-lg btn-primary btn-block" onClick={this.handleClick}>Register</button>
 
-        <ErrorMessage reducer='auth' />
+            <ErrorMessage reducer='auth' />
+          </div>
+        </div>
       </div>
     )
   }
