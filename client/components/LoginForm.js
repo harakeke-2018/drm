@@ -30,6 +30,7 @@ class LoginForm extends React.Component {
       password: password.trim()
     }
     this.props.loginUser(creds)
+      .then(() => this.props.history.push('/'))
   }
 
   render () {

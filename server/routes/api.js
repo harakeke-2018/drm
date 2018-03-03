@@ -95,7 +95,6 @@ router.get('/stock/:id', (req, res) => {
   const teamId = req.params.id
   stock.getTeamStockByTeamId(teamId)
     .then(stocks => {
-      console.log(stocks)
       res.json(stocks)
     })
     .catch(err => {
