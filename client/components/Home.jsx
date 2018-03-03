@@ -32,7 +32,7 @@ class Home extends React.Component {
           })}
         </div>
 
-        {/* <LoginForm /> */}
+        <LoginForm history={this.props.history}/>
       </div>
     )
   }
