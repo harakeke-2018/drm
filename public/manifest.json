@@ -1,0 +1,15 @@
+{
+  "short_name": "Re:Source",
+  "name": "Re:Source: A Disaster Management",
+  "icons": [
+    {
+      "src":"icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/?utm_source=homescreen",
+  "background_color": "#663399",
+  "theme_color": "#663399",
+  "display": "standalone"
+}
