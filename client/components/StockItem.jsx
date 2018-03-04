@@ -45,8 +45,8 @@ class StockItem extends React.Component {
           <p className='three columns' style={{textAlign: 'center', fontWeight: 'bold', margin: 'auto'}}>Stock: {active.quantity}</p>
 
           <button className='two columns hideOnShrink' type='button' key={active.id} onClick={this.toggleLog}>{!this.state.logIsVisible ? 'Recent' : 'Hide'}</button>
-          <button className='one column'>+</button>
-          <button className='one column' onClick={this.props.decrementItems}>-</button>
+          <button className='one column' onClick={() => this.props.incrementItems(active.id, active.quantity)}>+</button>
+          <button className='one column' onClick={() => this.props.decrementItems(active.id, active.quantity)}>-</button>
         </div>
 
         <div className='row'>
@@ -97,8 +97,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    decrementItems: () => {
-      return dispatch(deliverItems(1, 7))
+    decrementItems: (itemId, qty) => {
+      return dispatch(deliverItems(itemId, qty))
     }
   }
 }

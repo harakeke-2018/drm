@@ -92,6 +92,20 @@ router.get('/stock', (req, res) => {
     })
 })
 
+router.post('/decrement', (req, res) => {
+  const teamStockId = req.body.id
+  stock.deliverItems(teamStockId, req.body.quantity)
+    .then(() => {
+      stock.getItemQty(teamStockId)
+        .then(decremented => {
+          res.json(decremented[0])
+        })
+        .catch(err => {
+          res.status(400).send({message: err.message})
+        })
+    })
+})
+
 // Protect all routes beneath this point
 router.use(
   verifyJwt({
@@ -139,19 +153,19 @@ router.post('/increment', (req, res) => {
 })
 
 // decrement quantity of a item
-router.post('/decrement', (req, res) => {
-  const teamStockId = req.body.id
-  stock.deliverItems(teamStockId, req.body.quantity)
-    .then(() => {
-      stock.getItemQty(teamStockId)
-        .then(decremented => {
-          res.json(decremented[0])
-        })
-        .catch(err => {
-          res.status(400).send({message: err.message})
-        })
-    })
-})
+// router.post('/decrement', (req, res) => {
+//   const teamStockId = req.body.id
+//   stock.deliverItems(teamStockId, req.body.quantity)
+//     .then(() => {
+//       stock.getItemQty(teamStockId)
+//         .then(decremented => {
+//           res.json(decremented[0])
+//         })
+//         .catch(err => {
+//           res.status(400).send({message: err.message})
+//         })
+//     })
+// })
 
 // These routes are protected
 router.get('/secret', (req, res) => {
