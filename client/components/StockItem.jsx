@@ -48,6 +48,7 @@ class StockItem extends React.Component {
 
   render () {
     const active = this.props.item
+    const recentOrHide = !this.state.logIsVisible ? 'Recent' : 'Hide'
     return (
       <div className='row'>
 
@@ -57,7 +58,7 @@ class StockItem extends React.Component {
           </div>
           <p className='three columns' style={{textAlign: 'center', fontWeight: 'bold', margin: 'auto'}}>Stock: {active.quantity}</p>
 
-          <button className='two columns hideOnShrink' type='button' key={active.id} onClick={this.toggleLog}>{!this.state.logIsVisible ? 'Recent' : 'Hide'}</button>
+          <button className='two columns hideOnShrink' type='button' key={active.id} onClick={this.toggleLog}>{recentOrHide}</button>
           <button className='one column' id='incrementIsOpen' onClick={this.openModals}>+</button>
           <button className='one column' id='decrementIsOpen' onClick={this.openModals}>-</button>
         </div>
@@ -72,8 +73,8 @@ class StockItem extends React.Component {
                 <th>Stock Change</th>
               </tr>
               {this.state.logItems.map((logItem, id) => {
-                return (id <= 2) ? <Log key={id} item={logItem} />
-                  : null
+                // return only three recent log items
+                return id < 3 && <Log key={id} item={logItem} />
               })}
             </table>
           </div>}
@@ -88,7 +89,7 @@ class StockItem extends React.Component {
               <th>Stock Change</th>
             </tr>
             {this.state.logItems.map((item, id) => {
-              const redOrGreen = active.changed < 0 ? '#FEE8E5' : '#DCFEC8'
+              const redOrGreen = item.changed < 0 ? '#FEE8E5' : '#DCFEC8'
               return (<tr key={id}>
                 <td>{item.last_update}</td>
                 <td>{item.location}</td>
