@@ -83,7 +83,8 @@ router.get('/quote',
 )
 
 router.get('/stock', (req, res) => {
-  stock.getStock()
+  // hard-coded team 1
+  stock.getTeamStockByTeamId(1)
     .then(item => {
       res.json(item)
     })
@@ -100,12 +101,12 @@ router.use(
   auth.handleError
 )
 
-// get all stock of a team
+// get all stocks of a team
 router.get('/stock/:id', (req, res) => {
   const teamId = req.params.id
   stock.getTeamStockByTeamId(teamId)
-    .then(stock => {
-      res.json(stock)
+    .then(stocks => {
+      res.json(stocks)
     })
     .catch(err => {
       res.status(400).send({message: err.message})
