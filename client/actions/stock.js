@@ -27,6 +27,15 @@ export function requestItems () {
   }
 }
 
+export function increaseItems (teamStockId, qty) {
+  return (dispatch) => {
+    request('post', '/increment', {id: teamStockId, quantity: qty})
+      .then(res => {
+        dispatch(doDeliverItems(res.body.quantity))
+      })
+  }
+}
+
 export function deliverItems (teamStockId, qty) {
   return (dispatch) => {
     request('post', '/decrement', {id: teamStockId, quantity: qty})
@@ -35,5 +44,3 @@ export function deliverItems (teamStockId, qty) {
       })
   }
 }
-
-// increaseItems

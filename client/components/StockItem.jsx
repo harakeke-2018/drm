@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {deliverItems} from '../actions/stock'
+import {deliverItems, increaseItems} from '../actions/stock'
 import Modal from 'react-responsive-modal'
 
 import Log from './Log'
@@ -99,6 +99,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     decrementItems: (itemId, qty) => {
       return dispatch(deliverItems(itemId, qty))
+    },
+    incrementItems: (itemId, qty) => {
+      return dispatch(increaseItems(itemId, qty))
     }
   }
 }
