@@ -100,12 +100,12 @@ router.use(
   auth.handleError
 )
 
-// get all stocks of a team
+// get all stock of a team
 router.get('/stock/:id', (req, res) => {
   const teamId = req.params.id
   stock.getTeamStockByTeamId(teamId)
-    .then(stocks => {
-      res.json(stocks)
+    .then(stock => {
+      res.json(stock)
     })
     .catch(err => {
       res.status(400).send({message: err.message})

@@ -18,9 +18,9 @@ export const doDeliverItems = (qty) => {
   }
 }
 
-export function requestItems () {
+export function requestItems (teamId) {
   return (dispatch) => {
-    request('get', '/stock')
+    request('get', '/stock/' + teamId)
       .then(res => {
         dispatch(receiveItems(res.body))
       })
