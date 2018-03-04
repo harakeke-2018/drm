@@ -15,16 +15,10 @@ class StockItem extends React.Component {
         {last_update: '1/1/2000', changed: 500}]
     }
     this.toggleLog = this.toggleLog.bind(this)
-    this.decrementItems = this.decrementItems.bind(this)
   }
 
   toggleLog () {
     this.setState({logIsVisible: !this.state.logIsVisible})
-  }
-
-  decrementItems () {
-    console.log('hi')
-    this.props.dispatch(deliverItems(4, 7))
   }
 
   render () {
@@ -36,7 +30,7 @@ class StockItem extends React.Component {
           <button className='two columns' type='button' onClick={this.toggleLog}>{this.state.logIsVisible ? 'Hide' : 'Log'}</button>
           <div className='three columns'></div>
           <button className='one column'>+</button>
-          <button className='one column' onClick={this.decrementItems}>-</button>
+          <button className='one column' onClick={this.props.decrementItems}>-</button>
         </div>
 
         <div className='twelve columns'>
@@ -64,4 +58,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(StockItem)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    decrementItems: () => {
+      return dispatch(deliverItems(1, 7))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StockItem)

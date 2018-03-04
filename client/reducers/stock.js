@@ -10,7 +10,7 @@ export default function stock (state = initialState, action) {
     case RECEIVE_ITEMS:
       return {...state, items: action.items}
     case DELIVER_ITEMS:
-      return {...state, latestQty: action.latestQty.quantity}
+      return {...state, latestQty: action.latestQty}
     default:
       return state
   }

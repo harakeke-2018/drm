@@ -31,7 +31,7 @@ export function deliverItems (teamStockId, qty) {
   return (dispatch) => {
     request('post', '/decrement', qty)
       .then(res => {
-        dispatch(doDeliverItems(res.body))
+        dispatch(doDeliverItems(res.body.quantity))
       })
   }
 }

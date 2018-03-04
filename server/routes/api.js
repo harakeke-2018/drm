@@ -136,7 +136,7 @@ router.post('/decrement', (req, res) => {
     .then(() => {
       stock.getItemQty(teamStockId)
         .then(decremented => {
-          res.json({quantity: decremented[0]})
+          res.json(decremented[0])
         })
         .catch(err => {
           res.status(400).send({message: err.message})
