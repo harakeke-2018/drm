@@ -18,34 +18,31 @@ class StockItem extends React.Component {
         {last_update: '29/11/2017', location: 'Mt Roskill Family Centre', changed: -500},
         {last_update: '1/1/2000', location: 'Auckland', changed: 999999}],
       logIsOpen: false,
-      plusQuantityIsOpen: false,
-      minusQuantityIsOpen: false
+      incrementIsOpen: false,
+      decrementIsOpen: false
     }
     this.toggleLog = this.toggleLog.bind(this)
-    this.onLogModalOpen = this.onLogModalOpen.bind(this)
-    this.onPlusQuantityOpen = this.onPlusQuantityOpen.bind(this)
-    this.onMinusQuantityOpen = this.onMinusQuantityOpen.bind(this)
+    this.openModals = this.openModals.bind(this)
+    this.closeModals = this.closeModals.bind(this)
   }
 
   toggleLog () {
-    this.setState({logIsVisible: !this.state.logIsVisible})
+    this.setState({
+      logIsVisible: !this.state.logIsVisible})
   }
 
-  onLogModalOpen () {
+  openModals (e) {
     this.setState({
-      logIsOpen: !this.state.logIsOpen
+      [e.target.id]: !this.state[e.target.id]
     })
   }
 
-  onPlusQuantityOpen () {
+  // this could be tidier
+  closeModals () {
     this.setState({
-      plusQuantityIsOpen: !this.state.plusQuantityIsOpen
-    })
-  }
-
-  onMinusQuantityOpen () {
-    this.setState({
-      minusQuantityIsOpen: !this.state.minusQuantityIsOpen
+      logIsOpen: false,
+      incrementIsOpen: false,
+      decrementIsOpen: false
     })
   }
 
@@ -55,19 +52,14 @@ class StockItem extends React.Component {
       <div className='row'>
 
         <div className='row' style={{textAlign: 'right'}}>
-          <div className='three columns' style={{border: 'black solid 1px', margin: 'auto'}} onClick={() => this.onLogModalOpen()} >
-            <p style={{textAlign: 'center', margin: 'auto', padding: '2.5%'}}>{active.item}</p>
+          <div className='three columns' style={{border: 'black solid 1px', margin: 'auto'}} onClick={this.openModals} >
+            <p id='logIsOpen' style={{textAlign: 'center', margin: 'auto', padding: '2.5%'}}>{active.item}</p>
           </div>
-          {/* <div className='three columns'>
-            <p style={{textAlign: 'right', fontWeight: 'bold'}}>Quantity: {active.quantity}</p>
-          </div> */}
           <p className='three columns' style={{textAlign: 'center', fontWeight: 'bold', margin: 'auto'}}>Stock: {active.quantity}</p>
 
           <button className='two columns hideOnShrink' type='button' key={active.id} onClick={this.toggleLog}>{!this.state.logIsVisible ? 'Recent' : 'Hide'}</button>
-          {/* <button className='one column' onClick={() => this.props.incrementItems(active.id, active.quantity)}>+</button> */}
-          {/* <button className='one column' onClick={() => this.props.decrementItems(active.id, active.quantity)}>-</button> */}
-          <button className='one column' onClick={this.onPlusQuantityOpen}>+</button>
-          <button className='one column' onClick={this.onMinusQuantityOpen}>-</button>
+          <button className='one column' id='incrementIsOpen' onClick={this.openModals}>+</button>
+          <button className='one column' id='decrementIsOpen' onClick={this.openModals}>-</button>
         </div>
 
         <div className='row'>
@@ -88,7 +80,7 @@ class StockItem extends React.Component {
         </div>
 
         <Modal open={this.state.logIsOpen}
-          onClose={this.onLogModalOpen} className='row'>
+          onClose={this.closeModals} className='row'>
           <table>
             <tr>
               <th>Date</th>
@@ -107,21 +99,21 @@ class StockItem extends React.Component {
         </Modal>
 
         {/* Update Stock - Add More Items */}
-        <Modal open={this.state.plusQuantityIsOpen}
-          onClose={this.onPlusQuantityOpen} className='row'>
+        <Modal open={this.state.incrementIsOpen}
+          onClose={this.closeModals} className='row'>
           <p>Add Stock</p>
           <h5>Quantity:</h5>
           <input />
-          <button>Add</button>
+          <button onClick={() => this.props.incrementItems(active.id, active.quantity)}>Add</button>
         </Modal>
 
         {/* Update Stock - Remove Items */}
-        <Modal open={this.state.minusQuantityIsOpen}
-          onClose={this.onMinusQuantityOpen} className='row'>
+        <Modal open={this.state.decrementIsOpen}
+          onClose={this.closeModals} className='row'>
           <p>Remove Stock</p>
           <h5>Quantity:</h5>
           <input />
-          <button>Reduce</button>
+          <button onClick={() => this.props.decrementItems(active.id, active.quantity)}>Reduce</button>
         </Modal>
       </div>
     )
