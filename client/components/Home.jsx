@@ -28,7 +28,7 @@ class Home extends React.Component {
           })}
         </div>
 
-        <LoginForm history={this.props.history}/>
+        {/* <LoginForm history={this.props.history}/> */}
       </div>
     )
   }

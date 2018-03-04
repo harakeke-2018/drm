@@ -19,7 +19,7 @@ class StockItem extends React.Component {
       logIsOpen: false,
       plusQuantityIsOpen: false,
       minusQuantityIsOpen: false
-        }
+    }
     this.toggleLog = this.toggleLog.bind(this)
     this.onLogModalOpen = this.onLogModalOpen.bind(this)
     this.onPlusQuantityOpen = this.onPlusQuantityOpen.bind(this)
@@ -67,60 +67,58 @@ class StockItem extends React.Component {
           <button className='one column' onClick={this.onMinusQuantityOpen}>-</button>
         </div>
 
-
-        
-
         <div className='row'>
           {this.state.logIsVisible ? (<div>
-          <table style={{margin: 'auto'}}>
-            <tr>
-              <th>Date</th>
-              <th>Location</th>
-              <th>Stock Change</th>
-            </tr>
-            {this.state.logItems.map((logItem, id) => {
-            return (id <= 2) ? <Log key={id} item={logItem} />
-                             : null})}
+            <table style={{margin: 'auto'}}>
+              <tr>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Stock Change</th>
+              </tr>
+              {this.state.logItems.map((logItem, id) => {
+                return (id <= 2) ? <Log key={id} item={logItem} />
+                  : null
+              })}
             </table>
-            </div>)
+          </div>)
             : null}
         </div>
 
         <Modal open={this.state.logIsOpen}
           onClose={this.onLogModalOpen} className='row'>
-            <table>
+          <table>
             <tr>
               <th>Date</th>
               <th>Location</th>
-              <th>Stock Change</th> 
+              <th>Stock Change</th>
             </tr>
             {this.state.logItems.map((item, id) => {
               return (<tr key={id}>
-                 <td>{item.last_update}</td>
-                 <td>{item.location}</td>
-                 {item.changed < 0 ? <td style={{margin: 'auto', textAlign: 'right', backgroundColor: '#FEE8E5' }}>{item.changed}</td>
-                                              : <td style={{margin: 'auto', textAlign: 'right', backgroundColor: '#DCFEC8' }}>{item.changed}</td>}
+                <td>{item.last_update}</td>
+                <td>{item.location}</td>
+                {item.changed < 0 ? <td style={{margin: 'auto', textAlign: 'right', backgroundColor: '#FEE8E5' }}>{item.changed}</td>
+                  : <td style={{margin: 'auto', textAlign: 'right', backgroundColor: '#DCFEC8' }}>{item.changed}</td>}
               </tr>)
             })}
           </table>
         </Modal>
-        
+
         {/* Update Stock - Add More Items */}
         <Modal open={this.state.plusQuantityIsOpen}
           onClose={this.onPlusQuantityOpen} className='row'>
-            <p>Add Stock</p>
-            <h5>Quantity:</h5>
-            <input />
-            <button>Add</button>
+          <p>Add Stock</p>
+          <h5>Quantity:</h5>
+          <input />
+          <button>Add</button>
         </Modal>
 
         {/* Update Stock - Remove Items */}
         <Modal open={this.state.minusQuantityIsOpen}
           onClose={this.onMinusQuantityOpen} className='row'>
-            <p>Remove Stock</p>
-            <h5>Quantity:</h5>
-            <input />
-            <button>Reduce</button>
+          <p>Remove Stock</p>
+          <h5>Quantity:</h5>
+          <input />
+          <button>Reduce</button>
         </Modal>
       </div>
     )
