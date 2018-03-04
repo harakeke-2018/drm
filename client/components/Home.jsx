@@ -13,8 +13,8 @@ class Home extends React.Component {
   }
 
   componentDidMount () {
-    // is currently user id, will need to be changed to team id
-    this.props.loadItems(this.props.user.id)
+    // is currently hard-coded, will need to use token
+    this.props.loadItems(1)
   }
 
   render () {
@@ -37,7 +37,6 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.user,
     items: state.stock.items,
     latestQty: state.stock.latestQty
   }
