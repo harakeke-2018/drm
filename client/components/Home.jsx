@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {requestItems} from '../actions/stock'
 
-import LoginForm from './LoginForm'
 import StockItem from './StockItem'
 
 class Home extends React.Component {
@@ -28,8 +27,6 @@ class Home extends React.Component {
             </div>
           })}
         </div>
-
-        <LoginForm history={this.props.history}/>
       </div>
     )
   }

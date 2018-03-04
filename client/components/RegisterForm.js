@@ -34,7 +34,7 @@ class RegisterForm extends React.Component {
       password: password.trim()
     }
     this.props.registerUser(creds)
-      .then(() => this.props.history.push('/'))
+      .then(() => this.props.history.push('/home'))
   }
 
   render () {
