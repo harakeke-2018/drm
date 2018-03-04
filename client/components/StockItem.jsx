@@ -63,7 +63,8 @@ class StockItem extends React.Component {
         </div>
 
         <div className='row'>
-          {this.state.logIsVisible ? (<div>
+          {this.state.logIsVisible &&
+          <div>
             <table style={{margin: 'auto'}}>
               <tr>
                 <th>Date</th>
@@ -75,8 +76,7 @@ class StockItem extends React.Component {
                   : null
               })}
             </table>
-          </div>)
-            : null}
+          </div>}
         </div>
 
         <Modal open={this.state.logIsOpen}
@@ -88,11 +88,11 @@ class StockItem extends React.Component {
               <th>Stock Change</th>
             </tr>
             {this.state.logItems.map((item, id) => {
+              const redOrGreen = active.changed < 0 ? '#FEE8E5' : '#DCFEC8'
               return (<tr key={id}>
                 <td>{item.last_update}</td>
                 <td>{item.location}</td>
-                {item.changed < 0 ? <td style={{margin: 'auto', textAlign: 'right', backgroundColor: '#FEE8E5'}}>{item.changed}</td>
-                  : <td style={{margin: 'auto', textAlign: 'right', backgroundColor: '#DCFEC8'}}>{item.changed}</td>}
+                <td style={{margin: 'auto', textAlign: 'right', backgroundColor: redOrGreen}}>{item.changed}</td>
               </tr>)
             })}
           </table>
