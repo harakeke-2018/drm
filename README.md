@@ -1,58 +1,9 @@
-# React/Redux client consuming an Express server with Passport local auth using JWTs
+# A Resource Management App for Disaster Centers
 
-This demonstrates a fairly minimal username/password auth scenario that makes use of libsodium/Argon2i password hashing. There's also a tiny API to show how JWTs might be used to secure it.
+This is an app to manage essential resources such as food, water, shelter in different disaster centers. A team leader at a location can immediately see the current stock of essential resources and request for more supplies from other teams. 
 
+We want to use progressive web app because we want to be able to see stock items in low connectivity situations. 
 
-## Setup
-
-```shell
-npm i
-mv .env.example .env
-npm start
-```
-
-* A `postinstall` script will run a knex migration that creates a `users` table.
-* Go to [http://localhost:3000](http://localhost:3000) to see the site.
-
-
-## Deploying to Heroku
-
-The database migration doesn't run automatically in `postinstall` on production builds, so you'll need to invoke it manually. Always a good idea to make sure you don't accidentally nuke your production database!
-
-```shell
-heroku login
-heroku create
-heroku addons:create heroku-postgresql:hobby-dev
-heroku run npm run migrate:prod
-```
-
-## More information
-
-The session and JWT secrets are loaded from environment variables.
-
-Password hashing modules often have a _native_ component: they're written in lower-level languages like C or C++ with a JavaScript _wrapper_. This means they can be trickier to install on some platforms. There are some instructions for how to obtain the necessary tools to build native modules [here](https://github.com/dev-academy-programme/orientation/blob/master/installation/node.md). If you're using a Mac, be sure you have [XCode](https://itunes.apple.com/us/app/xcode/id497799835) and [Homebrew](https://brew.sh) installed and run `brew install libtool autoconf automake`.
-
-To use the API, you'll first need to register a user with the web form. Then hit the `https://localhost:3000/api/v1/authenticate` endpoint with a POST request containing something like:
-
-```json
-{ 
-  "username": "foo",
-  "password": "bar"
-}
-```
-
-The server should respond with a token. You can use this token in subsequent requests. You'll need to send an `Authorization` header:
-
-```shell
-curl -k -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJub2RleSIsImlhdCI6MTQ4NTM5NDc3MCwiZXhwIjoxNDg1NDgxMTcwfQ.EVo65RYtRlA9HTOiIqaG_aDfSE7xMedbr7JMeDlt5kE" \
-  https://localhost:3000/api/v1/quote
-```
-
-Notice the space between `Bearer` and the token. Compare the response to requests with the token and without it.
-
-
-## Things to think about
-
-This demo omits plenty of things that a production system would have to care about. For example, how could we better validate the registration form? Right now a user can be created with username ' ' and password ' ': hardly ideal!
+Stretch goal: it would be great to apply this app to volunteer human resources too (e.g. dispatching medically trained staff to a disaster center).
 
 Also, because the credentials are passed to the server in clear text, this should _ONLY_ happen over SSL/HTTPS in production.
