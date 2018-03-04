@@ -103,13 +103,8 @@ class StockItem extends React.Component {
               <th>Location</th>
               <th>Stock Change</th>
             </tr>
-            {this.state.logItems.map((item, id) => {
-              const redOrGreen = item.changed < 0 ? '#FEE8E5' : '#DCFEC8'
-              return (<tr key={id}>
-                <td>{item.last_update}</td>
-                <td>{item.location}</td>
-                <td style={{margin: 'auto', textAlign: 'right', backgroundColor: redOrGreen}}>{item.changed}</td>
-              </tr>)
+            {this.state.logItems.map((logItem, id) => {
+              return <Log key={id} item={logItem} />
             })}
           </table>
         </Modal>

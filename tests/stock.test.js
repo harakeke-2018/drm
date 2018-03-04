@@ -31,10 +31,10 @@ test('getTeams can return a list of all teams', () => {
     })
 })
 
-test('getTeamStockByTeamId returns a teams items', () => {
+test('getTeamStockByTeamId returns an item name', () => {
   return stock.getTeamStockByTeamId(1, testDb)
     .then(team => {
-      expect(team[0].quantity).toBe(30)
+      expect(team[0].item).toBe('water')
     })
 })
 

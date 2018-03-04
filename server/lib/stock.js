@@ -29,7 +29,8 @@ function getTeams (testDb) {
 function getTeamStockByTeamId (teamId, testDb) {
   const connection = testDb || knex
   return connection('team_stock')
-    .where('team_stock.team_id', teamId)
+    .join('stock', 'team_stock.item_id', 'stock.id')
+    .where('team_id', teamId)
     .select()
 }
 
