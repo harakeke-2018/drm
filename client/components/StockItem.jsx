@@ -132,7 +132,8 @@ class StockItem extends React.Component {
 const mapStateToProps = (state) => {
   return {
     items: state.stock.items,
-    latestQty: state.stock.latestQty
+    latestQty: state.stock.latestQty,
+    logItems: state.stock.logItems
   }
 }
 
