@@ -9,6 +9,7 @@ class StockItem extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      quantityChange: 0,
       logIsVisible: false,
       logItems: [{last_update: '29/1/2018', location: 'Auckland', changed: -25},
         {last_update: '1/1/2018', location: 'Mt Eden', changed: 50},
@@ -24,6 +25,8 @@ class StockItem extends React.Component {
     this.toggleLog = this.toggleLog.bind(this)
     this.openModals = this.openModals.bind(this)
     this.closeModals = this.closeModals.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.updateAndCloseModal = this.updateAndCloseModal.bind(this)
   }
 
   toggleLog () {
@@ -44,6 +47,18 @@ class StockItem extends React.Component {
       incrementIsOpen: false,
       decrementIsOpen: false
     })
+  }
+
+  handleChange (e) {
+    this.setState({
+      quantityChange: e.target.value
+    })
+  }
+
+  updateAndCloseModal (e) {
+    const action = e.target.id + 'Items'
+    this.props[action](this.props.item.id, this.state.quantityChange)
+    this.closeModals()
   }
 
   render () {
@@ -104,8 +119,9 @@ class StockItem extends React.Component {
           onClose={this.closeModals} className='row'>
           <p>Add Stock</p>
           <h5>Quantity:</h5>
-          <input />
-          <button onClick={() => this.props.incrementItems(active.id, active.quantity)}>Add</button>
+          <input onChange={this.handleChange}/>
+          <button id='increment' onClick={this.updateAndCloseModal}>Add</button>
+
         </Modal>
 
         {/* Update Stock - Remove Items */}
@@ -113,8 +129,8 @@ class StockItem extends React.Component {
           onClose={this.closeModals} className='row'>
           <p>Remove Stock</p>
           <h5>Quantity:</h5>
-          <input />
-          <button onClick={() => this.props.decrementItems(active.id, active.quantity)}>Reduce</button>
+          <input onChange={this.handleChange}/>
+          <button id='decrement' onClick={this.updateAndCloseModal}>Reduce</button>
         </Modal>
       </div>
     )
@@ -130,11 +146,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    decrementItems: (itemId, qty) => {
-      return dispatch(deliverItems(itemId, qty))
+    decrementItems: (item, qty) => {
+      return dispatch(deliverItems(item, qty))
     },
-    incrementItems: (itemId, qty) => {
-      return dispatch(increaseItems(itemId, qty))
+    incrementItems: (item, qty) => {
+      return dispatch(increaseItems(item, qty))
     }
   }
 }
