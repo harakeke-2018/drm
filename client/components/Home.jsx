@@ -13,11 +13,7 @@ class Home extends React.Component {
   }
 
   componentDidMount () {
-    this.loadItems()
-  }
-
-  loadItems () {
-    this.props.dispatch(requestItems())
+    this.props.loadItems()
   }
 
   render () {
@@ -45,12 +41,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     loadItems: () => {
-//       return dispatch(requestItems())
-//     }
-//   }
-// }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadItems: () => {
+      return dispatch(requestItems())
+    }
+  }
+}
 
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
