@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {deliverItems, increaseItems} from '../actions/stock'
 import Modal from 'react-responsive-modal'
 
 import Log from './Log'
@@ -8,6 +9,7 @@ class StockItem extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      quantityChange: 0,
       logIsVisible: false,
       logItems: [{last_update: '29/1/2018', location: 'Auckland', changed: -25},
         {last_update: '1/1/2018', location: 'Mt Eden', changed: 50},
@@ -17,117 +19,118 @@ class StockItem extends React.Component {
         {last_update: '29/11/2017', location: 'Mt Roskill Family Centre', changed: -500},
         {last_update: '1/1/2000', location: 'Auckland', changed: 999999}],
       logIsOpen: false,
-      plusQuantityIsOpen: false,
-      minusQuantityIsOpen: false
-        }
+      incrementIsOpen: false,
+      decrementIsOpen: false
+    }
     this.toggleLog = this.toggleLog.bind(this)
-    this.onLogModalOpen = this.onLogModalOpen.bind(this)
-    this.onPlusQuantityOpen = this.onPlusQuantityOpen.bind(this)
-    this.onMinusQuantityOpen = this.onMinusQuantityOpen.bind(this)
+    this.openModals = this.openModals.bind(this)
+    this.closeModals = this.closeModals.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.updateAndCloseModal = this.updateAndCloseModal.bind(this)
   }
 
   toggleLog () {
-    this.setState({logIsVisible: !this.state.logIsVisible})
+    this.setState({
+      logIsVisible: !this.state.logIsVisible})
   }
 
-  onLogModalOpen () {
+  openModals (e) {
     this.setState({
-      logIsOpen: !this.state.logIsOpen
+      [e.target.id]: !this.state[e.target.id]
     })
   }
 
-  onPlusQuantityOpen () {
+  // this could be tidier
+  closeModals () {
     this.setState({
-      plusQuantityIsOpen: !this.state.plusQuantityIsOpen
+      logIsOpen: false,
+      incrementIsOpen: false,
+      decrementIsOpen: false
     })
   }
 
-  onMinusQuantityOpen () {
+  handleChange (e) {
     this.setState({
-      minusQuantityIsOpen: !this.state.minusQuantityIsOpen
+      quantityChange: e.target.value
     })
+  }
+
+  updateAndCloseModal (e) {
+    const action = e.target.id + 'Items'
+    this.props[action](this.props.item.id, this.state.quantityChange)
+    this.closeModals()
   }
 
   render () {
     const active = this.props.item
+    const recentOrHide = !this.state.logIsVisible ? 'Recent' : 'Hide'
     return (
       <div className='row'>
 
         <div className='row' style={{textAlign: 'right'}}>
-          <div className='three columns' style={{border: 'black solid 1px', margin: 'auto'}} onClick={() => this.onLogModalOpen()} >
-            <p style={{textAlign: 'center', margin: 'auto', padding: '2.5%'}}>{active.item}</p>
+          <div className='three columns' style={{border: 'black solid 1px', margin: 'auto'}} onClick={this.openModals} >
+            <p id='logIsOpen' style={{textAlign: 'center', margin: 'auto', padding: '2.5%'}}>{active.item}</p>
           </div>
-          {/* <div className='three columns'>
-            <p style={{textAlign: 'right', fontWeight: 'bold'}}>Quantity: {active.quantity}</p>
-          </div> */}
           <p className='three columns' style={{textAlign: 'center', fontWeight: 'bold', margin: 'auto'}}>Stock: {active.quantity}</p>
 
-          <button className='two columns hideOnShrink' type='button' key={active.id} onClick={this.toggleLog}>{!this.state.logIsVisible ? 'Recent' : 'Hide'}</button>
-          <button className='one column' onClick={this.onPlusQuantityOpen}>+</button>
-          <button className='one column' onClick={this.onMinusQuantityOpen}>-</button>
+          <button className='two columns hideOnShrink' type='button' key={active.id} onClick={this.toggleLog}>{recentOrHide}</button>
+          <button className='one column' id='incrementIsOpen' onClick={this.openModals}>+</button>
+          <button className='one column' id='decrementIsOpen' onClick={this.openModals}>-</button>
         </div>
 
-
-        
-
         <div className='row'>
-          {this.state.logIsVisible ? (<div>
-          <table style={{margin: 'auto'}}>
+          {this.state.logIsVisible &&
+          <div>
+            <table style={{margin: 'auto'}}>
+              <tr>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Stock Change</th>
+              </tr>
+              {this.state.logItems.map((logItem, id) => {
+                // return only three recent log items
+                return id < 3 && <Log key={id} item={logItem} />
+              })}
+            </table>
+          </div>}
+        </div>
+
+        <Modal open={this.state.logIsOpen}
+          onClose={this.closeModals} className='row'>
+          <table>
             <tr>
               <th>Date</th>
               <th>Location</th>
               <th>Stock Change</th>
             </tr>
             {this.state.logItems.map((logItem, id) => {
-            return (id <= 2) ? <Log key={id} item={logItem} />
-                             : null})}
-            </table>
-            </div>)
-            : null}
-        </div>
-
-        <Modal open={this.state.logIsOpen}
-          onClose={this.onLogModalOpen} className='row'>
-            <table>
-            <tr>
-              <th>Date</th>
-              <th>Location</th>
-              <th>Stock Change</th> 
-            </tr>
-            {this.state.logItems.map((item, id) => {
-              return (<tr key={id}>
-                 <td>{item.last_update}</td>
-                 <td>{item.location}</td>
-                 {item.changed < 0 ? <td style={{margin: 'auto', textAlign: 'right', backgroundColor: '#FEE8E5' }}>{item.changed}</td>
-                                              : <td style={{margin: 'auto', textAlign: 'right', backgroundColor: '#DCFEC8' }}>{item.changed}</td>}
-              </tr>)
+              return <Log key={id} item={logItem} />
             })}
           </table>
         </Modal>
-        
+
         {/* Update Stock - Add More Items */}
-        <Modal open={this.state.plusQuantityIsOpen}
-          onClose={this.onPlusQuantityOpen} className='row'>
-            <p>Add Stock</p>
-            <h5>Quantity:</h5>
-            <input />
-            <button>Add</button>
+        <Modal open={this.state.incrementIsOpen}
+          onClose={this.closeModals} className='row'>
+          <p>Add Stock</p>
+          <h5>Quantity:</h5>
+          <input onChange={this.handleChange}/>
+          <button id='increment' onClick={this.updateAndCloseModal}>Add</button>
+
         </Modal>
 
         {/* Update Stock - Remove Items */}
-        <Modal open={this.state.minusQuantityIsOpen}
-          onClose={this.onMinusQuantityOpen} className='row'>
-            <p>Remove Stock</p>
-            <h5>Quantity:</h5>
-            <input />
-            <button>Reduce</button>
+        <Modal open={this.state.decrementIsOpen}
+          onClose={this.closeModals} className='row'>
+          <p>Remove Stock</p>
+          <h5>Quantity:</h5>
+          <input onChange={this.handleChange}/>
+          <button id='decrement' onClick={this.updateAndCloseModal}>Reduce</button>
         </Modal>
       </div>
     )
   }
 }
-
-// get relevant info from props
 
 const mapStateToProps = (state) => {
   return {
@@ -136,4 +139,15 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(StockItem)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    decrementItems: (item, qty) => {
+      return dispatch(deliverItems(item, qty))
+    },
+    incrementItems: (item, qty) => {
+      return dispatch(increaseItems(item, qty))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StockItem)

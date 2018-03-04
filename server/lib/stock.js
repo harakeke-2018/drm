@@ -9,7 +9,8 @@ module.exports = {
   getLastUpdate,
   receiveItems,
   deliverItems,
-  getLogsByTeamItemId
+  getLogsByTeamItemId,
+  getItemQty
   // deleteStock
 }
 
@@ -28,7 +29,8 @@ function getTeams (testDb) {
 function getTeamStockByTeamId (teamId, testDb) {
   const connection = testDb || knex
   return connection('team_stock')
-    .where('team_stock.team_id', teamId)
+    .join('stock', 'team_stock.item_id', 'stock.id')
+    .where('team_id', teamId)
     .select()
 }
 
@@ -63,4 +65,11 @@ function getLogsByTeamItemId (teamItemId, testDb) {
     .where('log.team_stock_id', teamItemId)
     .orderBy('log.date', 'desc')
     .select()
+}
+
+function getItemQty (teamStockId, testDb) {
+  const connection = testDb || knex
+  return connection('team_stock')
+    .where('team_stock.id', teamStockId)
+    .select('quantity')
 }

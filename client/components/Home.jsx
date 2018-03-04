@@ -13,7 +13,8 @@ class Home extends React.Component {
   }
 
   componentDidMount () {
-    this.props.loadItems()
+    // is currently user id, will need to be changed to team id
+    this.props.loadItems(this.props.user.id)
   }
 
   render () {
@@ -36,6 +37,7 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    user: state.auth.user,
     items: state.stock.items,
     latestQty: state.stock.latestQty
   }
@@ -43,8 +45,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadItems: () => {
-      return dispatch(requestItems())
+    loadItems: (teamId) => {
+      return dispatch(requestItems(teamId))
     }
   }
 }
