@@ -86,8 +86,6 @@ class StockItem extends React.Component {
   }
 }
 
-// get relevant info from props
-
 const mapStateToProps = (state) => {
   return {
     items: state.stock.items,
