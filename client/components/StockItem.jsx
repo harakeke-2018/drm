@@ -63,21 +63,6 @@ class StockItem extends React.Component {
     this.closeModals()
   }
 
-  updateQty (quantity) {
-    alert('com...')
-    const oldItem = this.state.item
-    const newItem = {
-      id: oldItem.id,
-      item: oldItem.item,
-      item_id: oldItem.item_id,
-      last_update: oldItem.last_update,
-      location_id: oldItem.location_id,
-      quantity: quantity
-    }
-    newItem.quantity = quantity
-    this.setState({item: newItem})
-  }
-
   render () {
     const active = this.state.item
     const recentOrHide = !this.state.logIsVisible ? 'Recent' : 'Hide'
@@ -159,11 +144,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    decrementItems: (item, qty, cb) => {
-      return dispatch(deliverItems(item, qty, cb))
+    decrementItems: (item, qty) => {
+      return dispatch(deliverItems(item, qty))
     },
     incrementItems: (item, qty, cb) => {
-      return dispatch(increaseItems(item, qty, cb))
+      return dispatch(increaseItems(item, qty))
     }
   }
 }
