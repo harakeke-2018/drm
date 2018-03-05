@@ -141,9 +141,9 @@ router.post('/increment', (req, res) => {
   stock.receiveItems(locationStockId, req.body.quantity)
     .then(() => {
       stock.getItemQty(locationStockId)
-           .then(incremented => {
-             res.json(incremented[0])
-      })
+        .then(incremented => {
+          res.json(incremented[0])
+        })
     })
     .catch(err => {
       res.status(400).send({message: err.message})
@@ -163,7 +163,6 @@ router.post('/decrement', (req, res) => {
           res.status(400).send({message: err.message})
         })
     })
-    
 })
 
 // These routes are protected
@@ -173,7 +172,6 @@ router.get('/secret', (req, res) => {
     user: `Your user ID is: ${req.user.id}`
   })
 })
-
 
 // getAllStockByOrgId
 // router.get()
