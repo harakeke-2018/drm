@@ -147,7 +147,7 @@ const mapDispatchToProps = (dispatch) => {
     decrementItems: (item, qty) => {
       return dispatch(deliverItems(item, qty))
     },
-    incrementItems: (item, qty, cb) => {
+    incrementItems: (item, qty) => {
       return dispatch(increaseItems(item, qty))
     }
   }
