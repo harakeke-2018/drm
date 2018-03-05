@@ -70,7 +70,7 @@ class StockItem extends React.Component {
   }
 
   render () {
-    const active = this.props.item
+    const active = this.state.item
     const recentOrHide = !this.state.logIsVisible ? 'Recent' : 'Hide'
     return (
       <div className='row'>

@@ -93,6 +93,14 @@ router.get('/quote',
   }
 )
 
+// Protect all routes beneath this point
+router.use(
+  verifyJwt({
+    secret: getSecret
+  }),
+  auth.handleError
+)
+
 router.get('/stock', (req, res) => {
   // hard-coded team 1
   stock.getLocationStockByLocationId(1)
@@ -103,14 +111,6 @@ router.get('/stock', (req, res) => {
       res.status(400).send({message: err.message})
     })
 })
-
-// Protect all routes beneath this point
-router.use(
-  verifyJwt({
-    secret: getSecret
-  }),
-  auth.handleError
-)
 
 // get all stocks of a location
 router.get('/stock/:id', (req, res) => {
