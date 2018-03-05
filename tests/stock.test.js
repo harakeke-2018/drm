@@ -24,21 +24,21 @@ test('getStock returns all potential stock items', () => {
     })
 })
 
-test('getTeams can return a list of all teams', () => {
-  return stock.getTeams(testDb)
-    .then(teams => {
-      expect(teams[1].location).toBe('Wellington')
+test('getlocations can return a list of all locations', () => {
+  return stock.getlocations(testDb)
+    .then(locations => {
+      expect(locations[1].location).toBe('Wellington')
     })
 })
 
-test('getTeamStockByTeamId returns an item name', () => {
-  return stock.getTeamStockByTeamId(1, testDb)
-    .then(team => {
-      expect(team[0].item).toBe('water')
+test('getlocationStockBylocationId returns a locations items', () => {
+  return stock.getlocationStockBylocationId(1, testDb)
+    .then(location => {
+      expect(location[0].quantity).toBe(30)
     })
 })
 
-test('getLastUpdate returns the last update from a team', () => {
+test('getLastUpdate returns the last update from a location', () => {
   return stock.getLastUpdate(1, testDb)
     .then(lastUpdate => {
       expect(lastUpdate[0].last_update).toBe('Monday, 29 February, 2016')
@@ -59,8 +59,8 @@ test('deliverItems can successfully update an existing row', () => {
     })
 })
 
-test('getLogsByTeamItemId can get logs for a team', () => {
-  return stock.getLogsByTeamItemId(2, testDb)
+test('getLogsBylocationItemId can get logs for a location', () => {
+  return stock.getLogsBylocationItemId(2, testDb)
     .then(log => {
       expect(log[0].date).toBe('Thursday 1 March 2018')
     })
