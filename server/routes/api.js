@@ -156,8 +156,8 @@ router.post('/decrement', (req, res) => {
   stock.deliverItems(locationStockId, req.body.quantity)
     .then(() => {
       stock.getItemQty(locationStockId)
-        .then(incremented => {
-          res.json(incremented[0])
+        .then(decremented => {
+          res.json(decremented[0])
         })
     })
     .catch(err => {
