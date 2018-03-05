@@ -24,10 +24,10 @@ test('getStock returns all potential stock items', () => {
     })
 })
 
-test('getlocations can return a list of all locations', () => {
-  return stock.getlocations(testDb)
+test('getLocations can return a list of all locations', () => {
+  return stock.getLocation(testDb)
     .then(locations => {
-      expect(locations[1].location).toBe('Wellington')
+      expect(locations[1].name).toBe('Wellington')
     })
 })
 
@@ -41,7 +41,7 @@ test('getLocationStockByLocationId returns a locations items', () => {
 test('getLastUpdate returns the last update from a location', () => {
   return stock.getLastUpdate(1, testDb)
     .then(lastUpdate => {
-      expect(lastUpdate[0].last_update).toBe('Monday, 29 February, 2016')
+      expect(lastUpdate[0].last_update).toBe('29/02/2016')
     })
 })
 
@@ -59,9 +59,16 @@ test('deliverItems can successfully update an existing row', () => {
     })
 })
 
-test('getLogsBylocationItemId can get logs for a location', () => {
-  return stock.getLogsBylocationItemId(2, testDb)
+test('getLogsByLocationItemId can get logs for a location', () => {
+  return stock.getLogsByLocationItemId(2, testDb)
     .then(log => {
       expect(log[0].date).toBe('Thursday 1 March 2018')
+    })
+})
+
+test('updateLog can insert a new row of 4 columns into Log table', () => {
+  return stock.updateLog(1, 'increment', '2018/02/11', testDb)
+    .then(res => {
+      expect(res).toEqual([4])
     })
 })

@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {deliverItems, increaseItems} from '../actions/stock'
+
 import Modal from 'react-responsive-modal'
 
 import Log from './Log'
@@ -28,7 +29,6 @@ class StockItem extends React.Component {
     this.closeModals = this.closeModals.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.updateAndCloseModal = this.updateAndCloseModal.bind(this)
-    this.updateQty = this.updateQty.bind(this)
   }
 
   toggleLog () {
@@ -53,13 +53,19 @@ class StockItem extends React.Component {
 
   handleChange (e) {
     this.setState({
-      quantityChange: e.target.value
+      quantityChange: Number(e.target.value)
     })
   }
 
   updateAndCloseModal (e) {
-    const action = e.target.id + 'Items'
-    this.props[action](this.props.item.id, this.state.quantityChange, this.updateQty)
+    const action = (Number(e.target.id)) ? 'increment' : 'decrement'
+    this.props[action](this.props.item.id, this.state.quantityChange)
+    const item = this.state.item
+    // needs refactoring
+    item.quantity = (Number(e.target.id)) ? (this.state.item.quantity + this.state.quantityChange) : (this.state.item.quantity - this.state.quantityChange)
+    this.setState({
+      item
+    })
     this.closeModals()
   }
 
@@ -117,7 +123,7 @@ class StockItem extends React.Component {
           <p>Add Stock</p>
           <h5>Quantity:</h5>
           <input onChange={this.handleChange}/>
-          <button id='increment' onClick={this.updateAndCloseModal}>Add</button>
+          <button id='1' onClick={this.updateAndCloseModal}>Add</button>
 
         </Modal>
 
@@ -127,7 +133,7 @@ class StockItem extends React.Component {
           <p>Remove Stock</p>
           <h5>Quantity:</h5>
           <input onChange={this.handleChange}/>
-          <button id='decrement' onClick={this.updateAndCloseModal}>Reduce</button>
+          <button id='0' onClick={this.updateAndCloseModal}>Reduce</button>
         </Modal>
       </div>
     )
@@ -144,10 +150,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    decrementItems: (item, qty) => {
+    decrement: (item, qty) => {
       return dispatch(deliverItems(item, qty))
     },
-    incrementItems: (item, qty) => {
+    increment: (item, qty) => {
       return dispatch(increaseItems(item, qty))
     }
   }

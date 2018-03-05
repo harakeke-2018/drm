@@ -1,4 +1,4 @@
-import {RECEIVE_ITEMS, DELIVER_ITEMS} from '../actions/stock'
+import {RECEIVE_ITEMS, DELIVER_ITEMS, STOCK_UP_ITEMS} from '../actions/stock'
 
 const initialState = {
   items: [],
@@ -19,6 +19,8 @@ export default function stock (state = initialState, action) {
     case RECEIVE_ITEMS:
       return {...state, items: action.items}
     case DELIVER_ITEMS:
+      return updateQty(state, action)
+    case STOCK_UP_ITEMS:
       return updateQty(state, action)
     default:
       return state
