@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {deliverItems, increaseItems} from '../actions/stock'
+import {requestLogs} from '../actions/logs'
 import Modal from 'react-responsive-modal'
 
 import Log from './Log'
@@ -27,6 +28,10 @@ class StockItem extends React.Component {
     this.closeModals = this.closeModals.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.updateAndCloseModal = this.updateAndCloseModal.bind(this)
+  }
+
+  componentDidMount () {
+    this.props.requestLogs(1,2)
   }
 
   toggleLog () {
@@ -136,12 +141,15 @@ const mapStateToProps = (state) => {
   return {
     items: state.stock.items,
     latestQty: state.stock.latestQty,
-    logItems: state.stock.logItems
+    logs: state.stock.logs
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    requestLogs: (locationId, stockId) => {
+      return dispatch(requestLogs(locationId, stockId))
+    },
     decrementItems: (item, qty) => {
       return dispatch(deliverItems(item, qty))
     },

@@ -70,8 +70,10 @@ function getSecret (req, payload, done) {
 
 // This route will set the req.user object if it exists, but is still public
 router.get('/logs', (req, res) => {
-  logs.getLogs(req.body.locationId, req.body.stockId)
+  console.log('Reached here', req.query)
+  logs.getLogs(req.query.locationId, req.query.stockId)
     .then(log => {
+      console.log(log)
       res.json(log)
     })
     .catch(err => {

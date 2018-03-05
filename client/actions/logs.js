@@ -12,9 +12,9 @@ export const receiveLogs = (logs) => {
 
 export function requestLogs (locationId, stockId) {
   return (dispatch) => {
-    request('get', '/logs', locationId, stockId)
+    request('get', '/logs', {locationId: locationId, stockId: stockId})
       .then(res => {
-        dispatch(receiveLogs(res.body))
+        dispatch(receiveLogs(res.body[0]))
       })
   }
 }

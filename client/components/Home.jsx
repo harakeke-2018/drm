@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {requestItems} from '../actions/stock'
+import {requestLogs} from '../actions/logs'
 
 import StockItem from './StockItem'
 
@@ -35,7 +36,8 @@ class Home extends React.Component {
 const mapStateToProps = (state) => {
   return {
     items: state.stock.items,
-    latestQty: state.stock.latestQty
+    latestQty: state.stock.latestQty,
+    logs: state.stock.logs
   }
 }
 

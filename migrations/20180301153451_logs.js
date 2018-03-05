@@ -3,8 +3,8 @@ exports.up = (knex, Promise) => {
     if (!exists) {
       return knex.schema.createTable('logs', table => {
         table.increments('id').primary()
-        table.integer('stock_id').references('location_stock.item_id')
-        table.integer('location_id').references('location_stock.location_id')
+        table.integer('location_stock_id').references('location_stock.id')
+        table.integer('past_location_id').references('location.id')
         table.string('activity')
         table.integer('quantity_changed')
         table.string('date')
