@@ -77,10 +77,11 @@ function getItemQty (locationStockId, testDb) {
 
 function updateLog (id, activity, timestamp, testDb) {
   const connection = testDb || knex
+  console.log('hi')
   return connection('log')
     .insert({
-      location_stock_id: id,
-      activity: activity,
-      date: timestamp
+      'location_stock_id': id,
+      'activity': activity,
+      'date': timestamp
     })
 }

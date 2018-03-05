@@ -140,6 +140,9 @@ router.post('/increment', (req, res) => {
   const locationStockId = req.body.id
   stock.receiveItems(locationStockId, req.body.quantity)
     .then(() => {
+      stock.updateLog(locationStockId, 'increment', 'now')
+    })
+    .then(() => {
       stock.getItemQty(locationStockId)
         .then(incremented => {
           res.json(incremented[0])
