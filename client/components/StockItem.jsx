@@ -9,6 +9,7 @@ class StockItem extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      item: this.props.item,
       quantityChange: 0,
       logIsVisible: false,
       logItems: [{last_update: '29/1/2018', location: 'Auckland', changed: -25},
@@ -27,6 +28,7 @@ class StockItem extends React.Component {
     this.closeModals = this.closeModals.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.updateAndCloseModal = this.updateAndCloseModal.bind(this)
+    this.updateQty = this.updateQty.bind(this)
   }
 
   toggleLog () {
@@ -61,8 +63,23 @@ class StockItem extends React.Component {
     this.closeModals()
   }
 
+  updateQty (quantity) {
+    alert('com...')
+    const oldItem = this.state.item
+    const newItem = {
+      id: oldItem.id,
+      item: oldItem.item,
+      item_id: oldItem.item_id,
+      last_update: oldItem.last_update,
+      location_id: oldItem.location_id,
+      quantity: quantity
+    }
+    newItem.quantity = quantity
+    this.setState({item: newItem})
+  }
+
   render () {
-    const active = this.props.item
+    const active = this.state.item
     const recentOrHide = !this.state.logIsVisible ? 'Recent' : 'Hide'
     return (
       <div className='row'>
@@ -143,10 +160,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     decrementItems: (item, qty) => {
-      return dispatch(deliverItems(item, qty))
+      return dispatch(deliverItems(item, qty, updateQty))
     },
     incrementItems: (item, qty) => {
-      return dispatch(increaseItems(item, qty))
+      return dispatch(increaseItems(item, qty, updateQty))
     }
   }
 }

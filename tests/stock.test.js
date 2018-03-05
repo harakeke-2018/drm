@@ -31,8 +31,8 @@ test('getlocations can return a list of all locations', () => {
     })
 })
 
-test('getlocationStockBylocationId returns a locations items', () => {
-  return stock.getlocationStockBylocationId(1, testDb)
+test('getLocationStockByLocationId returns a locations items', () => {
+  return stock.getLocationStockByLocationId(1, testDb)
     .then(location => {
       expect(location[0].quantity).toBe(30)
     })

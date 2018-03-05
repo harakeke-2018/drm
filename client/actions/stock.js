@@ -11,10 +11,11 @@ export const receiveItems = (items) => {
   }
 }
 
-export const doDeliverItems = (qty) => {
+export const doDeliverItems = (item, qty) => {
   return {
     type: DELIVER_ITEMS,
-    latestQty: qty
+    latestQty: qty,
+    locationStockId: item
   }
 }
 
@@ -31,15 +32,16 @@ export function increaseItems (locationStockId, qty) {
   return (dispatch) => {
     request('post', '/increment', {id: locationStockId, quantity: qty})
       .then(res => {
-        dispatch(doDeliverItems(res.body.quantity))
+        dispatch(doDeliverItems(locationStockId, res.body.quantity))
       })
   }
 }
 
-export function deliverItems (locationStockId, qty) {
+export function deliverItems (locationStockId, qty, callback) {
   return (dispatch) => {
     request('post', '/decrement', {id: locationStockId, quantity: qty})
       .then(res => {
+        callback(res.body.quantity)
         dispatch(doDeliverItems(res.body.quantity))
       })
   }
