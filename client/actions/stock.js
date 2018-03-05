@@ -4,6 +4,7 @@ export const REQUEST_ITEMS = 'REQUEST_ITEMS'
 export const RECEIVE_ITEMS = 'RECEIVE_ITEMS'
 export const DELIVER_ITEMS = 'DELIVER_ITEMS'
 export const STOCK_UP_ITEMS = 'STOCK_UP_ITEMS'
+export const LOAD_LOCATIONS = 'LOAD_LOCATIONS'
 
 export const receiveItems = (items) => {
   return {
@@ -28,9 +29,16 @@ export const stockUpItems = (item, qty) => {
   }
 }
 
-export function requestItems () {
+export const loadLocations = (locations) => {
+  return {
+    type: LOAD_LOCATIONS,
+    locations: locations
+  }
+}
+
+export function requestItems (locationId) {
   return (dispatch) => {
-    request('get', '/stock')
+    request('get', '/stock/' + locationId)
       .then(res => {
         dispatch(receiveItems(res.body))
       })
@@ -51,6 +59,15 @@ export function deliverItems (locationStockId, qty) {
     request('post', '/decrement', {id: locationStockId, quantity: qty})
       .then(res => {
         dispatch(doDeliverItems(locationStockId, res.body.quantity))
+      })
+  }
+}
+
+export function getLocations () {
+  return (dispatch) => {
+    request('get', '/locations')
+      .then(res => {
+        dispatch(loadLocations(res.body))
       })
   }
 }
