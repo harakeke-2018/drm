@@ -155,13 +155,13 @@ router.post('/decrement', (req, res) => {
   const locationStockId = req.body.id
   stock.deliverItems(locationStockId, req.body.quantity)
     .then(() => {
-      stock.getItemQty(locationStockId)
-        .then(decremented => {
-          res.json(decremented[0])
-        })
-        .catch(err => {
-          res.status(400).send({message: err.message})
-        })
+      stock.updateLog(locationStockId, 'decrement', '2018/11/12')
+    })
+    .then(res => {
+      console.log('hi', res)
+    })
+    .catch(err => {
+      res.status(400).send({message: err.message})
     })
 })
 
