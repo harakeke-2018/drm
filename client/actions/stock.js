@@ -27,18 +27,18 @@ export function requestItems () {
   }
 }
 
-export function increaseItems (teamStockId, qty) {
+export function increaseItems (locationStockId, qty) {
   return (dispatch) => {
-    request('post', '/increment', {id: teamStockId, quantity: qty})
+    request('post', '/increment', {id: locationStockId, quantity: qty})
       .then(res => {
         dispatch(doDeliverItems(res.body.quantity))
       })
   }
 }
 
-export function deliverItems (teamStockId, qty) {
+export function deliverItems (locationStockId, qty) {
   return (dispatch) => {
-    request('post', '/decrement', {id: teamStockId, quantity: qty})
+    request('post', '/decrement', {id: locationStockId, quantity: qty})
       .then(res => {
         dispatch(doDeliverItems(res.body.quantity))
       })

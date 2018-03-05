@@ -114,7 +114,7 @@ router.use(
 // get all stocks of a location
 router.get('/stock/:id', (req, res) => {
   const locationId = req.params.id
-  stock.getlocationStockBylocationId(locationId)
+  stock.getLocationStockByLsocationId(locationId)
     .then(stocks => {
       res.json(stocks)
     })
@@ -139,7 +139,7 @@ router.post('/increment', (req, res) => {
   const locationStockId = req.body.id
   stock.receiveItems(locationStockId, req.body.quantity)
     .then(() => {
-      stock.getItemQtyBylocationStockId(locationStockId)
+      stock.getItemQty(locationStockId)
         .then(newQty => {
           res.json({quantity: newQty[0]})
         })
@@ -154,7 +154,7 @@ router.post('/decrement', (req, res) => {
   const locationStockId = req.body.id
   stock.deliverItems(locationStockId, req.body.quantity)
     .then(() => {
-      stock.getItemQtyBylocationStockId(locationStockId)
+      stock.getItemQty(locationStockId)
         .then(newQty => {
           res.json({quantity: newQty[0]})
         })

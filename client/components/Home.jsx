@@ -41,8 +41,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadItems: (teamId) => {
-      return dispatch(requestItems(teamId))
+    loadItems: (locationId) => {
+      return dispatch(requestItems(locationId))
     }
   }
 }

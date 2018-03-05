@@ -4,12 +4,13 @@ const knex = require('knex')(config)
 
 module.exports = {
   getStock,
-  getlocations,
-  getlocationStockBylocationId,
+  getLocation,
+  getLocationStockByLocationId,
   getLastUpdate,
   receiveItems,
   deliverItems,
-  getLogsBylocationItemId
+  getLogsByLocationItemId,
+  getItemQty
   // deleteStock
 }
 
@@ -19,16 +20,17 @@ function getStock (testDb) {
     .select()
 }
 
-function getlocations (testDb) {
+function getLocation (testDb) {
   const connection = testDb || knex
   return connection('location')
     .select()
 }
 
-function getlocationStockBylocationId (locationId, testDb) {
+function getLocationStockByLocationId (locationId, testDb) {
   const connection = testDb || knex
   return connection('location_stock')
-    .where('location_stock.location_id', locationId)
+    .join('stock', 'location_stock.item_id', 'stock.id')
+    .where('location_id', locationId)
     .select()
 }
 
@@ -57,10 +59,17 @@ function deliverItems (locationStockId, qty, testDb) {
     .decrement('quantity', qty)
 }
 
-function getLogsBylocationItemId (locationItemId, testDb) {
+function getLogsByLocationItemId (locationItemId, testDb) {
   const connection = testDb || knex
   return connection('log')
     .where('log.location_stock_id', locationItemId)
     .orderBy('log.date', 'desc')
     .select()
+}
+
+function getItemQty (locationStockId, testDb) {
+  const connection = testDb || knex
+  return connection('location_stock')
+    .where('location_stock.id', locationStockId)
+    .select('quantity')
 }
