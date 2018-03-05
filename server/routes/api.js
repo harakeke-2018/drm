@@ -94,7 +94,8 @@ router.get('/quote',
 )
 
 router.get('/stock', (req, res) => {
-  stock.getStock()
+  // hard-coded team 1
+  stock.getLocationStockByLocationId(1)
     .then(item => {
       res.json(item)
     })
@@ -114,7 +115,7 @@ router.use(
 // get all stocks of a location
 router.get('/stock/:id', (req, res) => {
   const locationId = req.params.id
-  stock.getLocationStockByLsocationId(locationId)
+  stock.getLocationStockByLocationId(locationId)
     .then(stocks => {
       res.json(stocks)
     })
@@ -125,7 +126,7 @@ router.get('/stock/:id', (req, res) => {
 
 // get all logs of stock items of a location
 router.get('/logs/:id', (req, res) => {
-  stock.getLogsBylocationItemId(req.params.id)
+  stock.getLogsByLocationItemId(req.params.id)
     .then(logs => {
       res.json(logs)
     })
@@ -140,9 +141,9 @@ router.post('/increment', (req, res) => {
   stock.receiveItems(locationStockId, req.body.quantity)
     .then(() => {
       stock.getItemQty(locationStockId)
-        .then(newQty => {
-          res.json({quantity: newQty[0]})
-        })
+           .then(incremented => {
+             res.json(incremented[0])
+      })
     })
     .catch(err => {
       res.status(400).send({message: err.message})
@@ -155,13 +156,14 @@ router.post('/decrement', (req, res) => {
   stock.deliverItems(locationStockId, req.body.quantity)
     .then(() => {
       stock.getItemQty(locationStockId)
-        .then(newQty => {
-          res.json({quantity: newQty[0]})
+        .then(decremented => {
+          res.json(decremented[0])
+        })
+        .catch(err => {
+          res.status(400).send({message: err.message})
         })
     })
-    .catch(err => {
-      res.status(400).send({message: err.message})
-    })
+    
 })
 
 // These routes are protected
@@ -171,6 +173,7 @@ router.get('/secret', (req, res) => {
     user: `Your user ID is: ${req.user.id}`
   })
 })
+
 
 // getAllStockByOrgId
 // router.get()
