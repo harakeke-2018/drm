@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {deliverItems, increaseItems} from '../actions/stock'
+
 import Modal from 'react-responsive-modal'
 
 import Log from './Log'

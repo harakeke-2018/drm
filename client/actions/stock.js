@@ -31,8 +31,7 @@ export function increaseItems (locationStockId, qty) {
   return (dispatch) => {
     request('post', '/increment', {id: locationStockId, quantity: qty})
       .then(res => {
-        console.log(res)
-        // dispatch(doDeliverItems(res.body.quantity))
+        dispatch(doDeliverItems(res.body.quantity))
       })
   }
 }
@@ -41,8 +40,7 @@ export function deliverItems (locationStockId, qty) {
   return (dispatch) => {
     request('post', '/decrement', {id: locationStockId, quantity: qty})
       .then(res => {
-        console.log(res)
-        // dispatch(doDeliverItems(res.body.quantity))
+        dispatch(doDeliverItems(res.body.quantity))
       })
   }
 }
