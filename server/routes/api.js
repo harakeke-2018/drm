@@ -70,7 +70,7 @@ function getSecret (req, payload, done) {
 
 // This route will set the req.user object if it exists, but is still public
 router.get('/logs', (req, res) => {
-  logs.getLogs(req.body.teamId, req.body.stockId)
+  logs.getLogs(req.body.locationId, req.body.stockId)
     .then(log => {
       res.json(log)
     })
@@ -94,8 +94,7 @@ router.get('/quote',
 )
 
 router.get('/stock', (req, res) => {
-  // hard-coded team 1
-  stock.getTeamStockByTeamId(1)
+  stock.getStock()
     .then(item => {
       res.json(item)
     })
@@ -112,10 +111,10 @@ router.use(
   auth.handleError
 )
 
-// get all stocks of a team
+// get all stocks of a location
 router.get('/stock/:id', (req, res) => {
-  const teamId = req.params.id
-  stock.getTeamStockByTeamId(teamId)
+  const locationId = req.params.id
+  stock.getlocationStockBylocationId(locationId)
     .then(stocks => {
       res.json(stocks)
     })
@@ -124,9 +123,9 @@ router.get('/stock/:id', (req, res) => {
     })
 })
 
-// get all logs of stock items of a team
+// get all logs of stock items of a location
 router.get('/logs/:id', (req, res) => {
-  stock.getLogsByTeamItemId(req.params.id)
+  stock.getLogsBylocationItemId(req.params.id)
     .then(logs => {
       res.json(logs)
     })
@@ -137,12 +136,12 @@ router.get('/logs/:id', (req, res) => {
 
 // increment quantity of a item
 router.post('/increment', (req, res) => {
-  const teamStockId = req.body.id
-  stock.receiveItems(teamStockId, req.body.quantity)
+  const locationStockId = req.body.id
+  stock.receiveItems(locationStockId, req.body.quantity)
     .then(() => {
-      stock.getItemQty(teamStockId)
-        .then(incremented => {
-          res.json(incremented[0])
+      stock.getItemQtyBylocationStockId(locationStockId)
+        .then(newQty => {
+          res.json({quantity: newQty[0]})
         })
     })
     .catch(err => {
@@ -152,16 +151,16 @@ router.post('/increment', (req, res) => {
 
 // decrement quantity of a item
 router.post('/decrement', (req, res) => {
-  const teamStockId = req.body.id
-  stock.deliverItems(teamStockId, req.body.quantity)
+  const locationStockId = req.body.id
+  stock.deliverItems(locationStockId, req.body.quantity)
     .then(() => {
-      stock.getItemQty(teamStockId)
-        .then(decremented => {
-          res.json(decremented[0])
+      stock.getItemQtyBylocationStockId(locationStockId)
+        .then(newQty => {
+          res.json({quantity: newQty[0]})
         })
-        .catch(err => {
-          res.status(400).send({message: err.message})
-        })
+    })
+    .catch(err => {
+      res.status(400).send({message: err.message})
     })
 })
 

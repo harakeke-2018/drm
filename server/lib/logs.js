@@ -6,7 +6,7 @@ module.exports = {
   getLogs
 }
 
-function getLogs (teamId, stockId) {
+function getLogs (locationId, stockId) {
     const connection = testDb || knex
     return connection('logs')
 }

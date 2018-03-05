@@ -1,5 +1,5 @@
 exports.up = (knex, Promise) => {
-  return knex.schema.hasTable('team').then(function (exists) {
+  return knex.schema.hasTable('location').then(function (exists) {
     if (!exists) {
       return knex.schema.createTable('location', table => {
         table.increments('id').primary()
