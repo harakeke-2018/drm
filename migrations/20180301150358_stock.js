@@ -4,7 +4,6 @@ exports.up = (knex, Promise) => {
       return knex.schema.createTable('stock', table => {
         table.increments('id').primary()
         table.string('item')
-        table.integer('quantity')
         table.string('last_update')
       })
     }

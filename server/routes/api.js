@@ -94,7 +94,8 @@ router.get('/quote',
 )
 
 router.get('/stock', (req, res) => {
-  stock.getStock()
+  // hard-coded team 1
+  stock.getTeamStockByTeamId(1)
     .then(item => {
       res.json(item)
     })
@@ -139,9 +140,9 @@ router.post('/increment', (req, res) => {
   const teamStockId = req.body.id
   stock.receiveItems(teamStockId, req.body.quantity)
     .then(() => {
-      stock.getItemQtyByTeamStockId(teamStockId)
-        .then(newQty => {
-          res.json({quantity: newQty[0]})
+      stock.getItemQty(teamStockId)
+        .then(incremented => {
+          res.json(incremented[0])
         })
     })
     .catch(err => {
@@ -154,13 +155,13 @@ router.post('/decrement', (req, res) => {
   const teamStockId = req.body.id
   stock.deliverItems(teamStockId, req.body.quantity)
     .then(() => {
-      stock.getItemQtyByTeamStockId(teamStockId)
-        .then(newQty => {
-          res.json({quantity: newQty[0]})
+      stock.getItemQty(teamStockId)
+        .then(decremented => {
+          res.json(decremented[0])
         })
-    })
-    .catch(err => {
-      res.status(400).send({message: err.message})
+        .catch(err => {
+          res.status(400).send({message: err.message})
+        })
     })
 })
 

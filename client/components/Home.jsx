@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {requestItems} from '../actions/stock'
 
-import LoginForm from './LoginForm'
 import StockItem from './StockItem'
 
 class Home extends React.Component {
@@ -13,7 +12,8 @@ class Home extends React.Component {
   }
 
   componentDidMount () {
-    this.props.loadItems()
+    // is currently hard-coded, will need to use token
+    this.props.loadItems(1)
   }
 
   render () {
@@ -27,8 +27,6 @@ class Home extends React.Component {
             </div>
           })}
         </div>
-
-        <LoginForm history={this.props.history}/>
       </div>
     )
   }
@@ -43,8 +41,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadItems: () => {
-      return dispatch(requestItems())
+    loadItems: (teamId) => {
+      return dispatch(requestItems(teamId))
     }
   }
 }
