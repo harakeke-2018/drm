@@ -59,7 +59,7 @@ class StockItem extends React.Component {
 
   updateAndCloseModal (e) {
     const action = e.target.id + 'Items'
-    this.props[action](this.props.item.id, this.state.quantityChange)
+    this.props[action](this.props.item.id, this.state.quantityChange, this.updateQty)
     this.closeModals()
   }
 
@@ -159,11 +159,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    decrementItems: (item, qty) => {
-      return dispatch(deliverItems(item, qty, updateQty))
+    decrementItems: (item, qty, cb) => {
+      return dispatch(deliverItems(item, qty, cb))
     },
-    incrementItems: (item, qty) => {
-      return dispatch(increaseItems(item, qty, updateQty))
+    incrementItems: (item, qty, cb) => {
+      return dispatch(increaseItems(item, qty, cb))
     }
   }
 }
