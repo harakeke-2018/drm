@@ -4,6 +4,7 @@ const verifyJwt = require('express-jwt')
 
 const crypto = require('../lib/crypto')
 const users = require('../lib/users')
+const logs = require('../lib/logs')
 const auth = require('../lib/auth')
 const stock = require('../lib/stock')
 
@@ -68,6 +69,16 @@ function getSecret (req, payload, done) {
 }
 
 // This route will set the req.user object if it exists, but is still public
+router.get('/logs', (req, res) => {
+  logs.getLogs(req.body.teamId, req.body.stockId)
+    .then(log => {
+      res.json(log)
+    })
+    .catch(err => {
+      res.status(400).send({message: err.message})
+    })
+})
+
 router.get('/quote',
   verifyJwt({
     credentialsRequired: false,

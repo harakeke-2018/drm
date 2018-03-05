@@ -10,27 +10,11 @@ export const receiveLogs = (logs) => {
   }
 }
 
-export const doDeliverLogs = (qty) => {
-  return {
-    type: RECEIVE_LOGS,
-    latestQty: qty
-  }
-}
-
-export function requestLogs (teamId) {
+export function requestLogs (teamId, stockId) {
   return (dispatch) => {
-    request('get', '/logs', teamId)
+    request('get', '/logs', teamId, stockId)
       .then(res => {
-        dispatch(receiveItems(res.body))
-      })
-  }
-}
-
-export function deliverItems (teamStockId, qty) {
-  return (dispatch) => {
-    request('post', '/decrement', qty)
-      .then(res => {
-        dispatch(doDeliverItems(res.body))
+        dispatch(receiveLogs(res.body))
       })
   }
 }
