@@ -101,16 +101,26 @@ router.use(
   auth.handleError
 )
 
-router.get('/stock', (req, res) => {
-  // hard-coded team 1
-  stock.getLocationStockByLocationId(1)
-    .then(item => {
-      res.json(item)
+router.get('/locations', (req, res) => {
+  stock.getLocation()
+    .then(locations => {
+      res.json(locations)
     })
     .catch(err => {
       res.status(400).send({message: err.message})
     })
 })
+
+// router.get('/stock', (req, res) => {
+//   // hard-coded team 1
+//   stock.getLocationStockByLocationId(1)
+//     .then(item => {
+//       res.json(item)
+//     })
+//     .catch(err => {
+//       res.status(400).send({message: err.message})
+//     })
+// })
 
 // get all stocks of a location
 router.get('/stock/:id', (req, res) => {
