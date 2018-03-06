@@ -7,7 +7,7 @@ exports.up = (knex, Promise) => {
         table.integer('past_location_id').references('location.id')
         table.string('activity')
         table.integer('quantity_changed')
-        table.string('date')
+        table.timestamps(true, true)
       })
     }
   })

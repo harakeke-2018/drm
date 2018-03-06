@@ -11,16 +11,16 @@ class Home extends React.Component {
     }
   }
 
-  componentDidMount () {
+  componentWillMount () {
     // is currently hard-coded, will need to use token
-    this.props.loadItems(1)
+    this.props.loadItems(this.props.locationId)
   }
 
   render () {
     return (
       <div>
         <div style={{ width: '50%', margin: 'auto' }}>
-          <h2 style={{ textAlign: 'center' }}>Stock List</h2>
+          <h2 style={{ textAlign: 'center' }}>Stock List of {this.props.location}</h2>
           {this.props.items.map((item, id) => {
             return <div key={id}>
               <StockItem item={item} />

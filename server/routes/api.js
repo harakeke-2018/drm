@@ -93,17 +93,6 @@ router.get('/quote',
   }
 )
 
-router.get('/stock', (req, res) => {
-  // hard-coded team 1
-  stock.getLocationStockByLocationId(1)
-    .then(item => {
-      res.json(item)
-    })
-    .catch(err => {
-      res.status(400).send({message: err.message})
-    })
-})
-
 // Protect all routes beneath this point
 router.use(
   verifyJwt({
@@ -111,6 +100,27 @@ router.use(
   }),
   auth.handleError
 )
+
+router.get('/locations', (req, res) => {
+  stock.getLocation()
+    .then(locations => {
+      res.json(locations)
+    })
+    .catch(err => {
+      res.status(400).send({message: err.message})
+    })
+})
+
+// router.get('/stock', (req, res) => {
+//   // hard-coded team 1
+//   stock.getLocationStockByLocationId(1)
+//     .then(item => {
+//       res.json(item)
+//     })
+//     .catch(err => {
+//       res.status(400).send({message: err.message})
+//     })
+// })
 
 // get all stocks of a location
 router.get('/stock/:id', (req, res) => {
@@ -140,10 +150,13 @@ router.post('/increment', (req, res) => {
   const locationStockId = req.body.id
   stock.receiveItems(locationStockId, req.body.quantity)
     .then(() => {
-      stock.getItemQty(locationStockId)
-           .then(incremented => {
-             res.json(incremented[0])
-      })
+      stock.updateLog(locationStockId, 'increment')
+        .then(() => {
+          stock.getItemQty(locationStockId)
+            .then(incremented => {
+              res.json(incremented[0])
+            })
+        })
     })
     .catch(err => {
       res.status(400).send({message: err.message})
@@ -155,15 +168,17 @@ router.post('/decrement', (req, res) => {
   const locationStockId = req.body.id
   stock.deliverItems(locationStockId, req.body.quantity)
     .then(() => {
-      stock.getItemQty(locationStockId)
-        .then(decremented => {
-          res.json(decremented[0])
-        })
-        .catch(err => {
-          res.status(400).send({message: err.message})
+      stock.updateLog(locationStockId, 'decrement')
+        .then(() => {
+          stock.getItemQty(locationStockId)
+            .then(decremented => {
+              res.json(decremented[0])
+            })
         })
     })
-    
+    .catch(err => {
+      res.status(400).send({message: err.message})
+    })
 })
 
 // These routes are protected
@@ -173,7 +188,6 @@ router.get('/secret', (req, res) => {
     user: `Your user ID is: ${req.user.id}`
   })
 })
-
 
 // getAllStockByOrgId
 // router.get()

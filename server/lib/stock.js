@@ -10,7 +10,8 @@ module.exports = {
   receiveItems,
   deliverItems,
   getLogsByLocationItemId,
-  getItemQty
+  getItemQty,
+  updateLog
   // deleteStock
 }
 
@@ -31,7 +32,7 @@ function getLocationStockByLocationId (locationId, testDb) {
   return connection('location_stock')
     .join('stock', 'location_stock.item_id', 'stock.id')
     .where('location_id', locationId)
-    .select()
+    .select('location_stock.id as id', 'stock.item', 'location_stock.quantity')
 }
 
 function getLastUpdate (locationId, testDb) {
@@ -72,4 +73,13 @@ function getItemQty (locationStockId, testDb) {
   return connection('location_stock')
     .where('location_stock.id', locationStockId)
     .select('quantity')
+}
+
+function updateLog (id, activity, testDb) {
+  const connection = testDb || knex
+  return connection('log')
+    .insert({
+      location_stock_id: id,
+      activity: activity
+    })
 }
