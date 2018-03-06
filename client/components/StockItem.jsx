@@ -10,7 +10,6 @@ class StockItem extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      item: this.props.item,
       quantityChange: 0,
       logIsVisible: false,
       logItems: [{last_update: '29/1/2018', location: 'Auckland', changed: -25},
@@ -60,9 +59,10 @@ class StockItem extends React.Component {
   updateAndCloseModal (e) {
     const action = (Number(e.target.id)) ? 'increment' : 'decrement'
     this.props[action](this.props.item.id, this.state.quantityChange)
-    const item = this.state.item
+    const item = this.props.item
+    console.log(this.props.item.id)
     // needs refactoring
-    item.quantity = (Number(e.target.id)) ? (this.state.item.quantity + this.state.quantityChange) : (this.state.item.quantity - this.state.quantityChange)
+    item.quantity = (Number(e.target.id)) ? (this.props.item.quantity + this.state.quantityChange) : (this.props.item.quantity - this.state.quantityChange)
     this.setState({
       item
     })
@@ -70,7 +70,7 @@ class StockItem extends React.Component {
   }
 
   render () {
-    const active = this.state.item
+    const active = this.props.item
     const recentOrHide = !this.state.logIsVisible ? 'Recent' : 'Hide'
     return (
       <div className='row'>
