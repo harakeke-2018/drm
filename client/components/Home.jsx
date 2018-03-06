@@ -71,6 +71,7 @@ class Home extends React.Component {
               <StockItem item={item} locationId={item.location_id} />
             </div>
           })}
+          <h1></h1>
           <Doughnut data={{
             datasets: [{
               backgroundColor: this.state.chartColors,
