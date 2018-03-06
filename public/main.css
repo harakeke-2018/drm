@@ -3,6 +3,18 @@
 	margin-bottom: 20px;
 }
 
+img {
+  height: auto;
+  width: auto;
+  max-width: 4rem;
+  max-height: 4rem;
+}
+
+h1 {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .form-signin {
   max-width: 420px;
   padding: 30px 38px 66px;
@@ -48,6 +60,8 @@ input[type="password"] {
 
 .hideOnShrink{
   display: block;
+  text-align: center;
+  margin: auto;
 }
 
 @media (max-width: 640px) 
@@ -55,11 +69,13 @@ input[type="password"] {
   .hideOnShrink
   {
       display: none !important;
+      text-align: center;
+  margin: auto;
   }
 }
 
 .showOnShrink{
-  display: none;
+  display: block;
 }
 
 @media (max-width: 850px) 
