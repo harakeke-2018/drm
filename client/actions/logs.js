@@ -14,6 +14,7 @@ export function requestLogs (locationId) {
   return (dispatch) => {
     request('get', '/logs', {locationId: locationId})
       .then(res => {
+
         dispatch(receiveLogs(res.body))
       })
   }

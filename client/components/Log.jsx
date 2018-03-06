@@ -6,7 +6,7 @@ class Log extends React.Component {
     const redOrGreen = active.quantity < 0 ? '#FEE8E5' : '#DCFEC8'
     return (
       <tr>
-        <td>{active.date}</td>
+        <td>{active.updated_at}</td>
         {/* Location Name */}
         <td>{active.name}</td>
         <td style={{margin: 'auto', textAlign: 'right', backgroundColor: redOrGreen}}>{active.quantity}</td>

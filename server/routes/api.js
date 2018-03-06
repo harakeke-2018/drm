@@ -72,6 +72,7 @@ function getSecret (req, payload, done) {
 router.get('/logs', (req, res) => {
   logs.getLogs(req.query.locationId)
     .then(log => {
+
       res.json(log)
     })
     .catch(err => {
@@ -150,9 +151,12 @@ router.post('/increment', (req, res) => {
   const locationStockId = req.body.id
   stock.receiveItems(locationStockId, req.body.quantity)
     .then(() => {
-      stock.getItemQty(locationStockId)
-        .then(incremented => {
-          res.json(incremented[0])
+      stock.updateLog(locationStockId, 'increment')
+        .then(() => {
+          stock.getItemQty(locationStockId)
+            .then(incremented => {
+              res.json(incremented[0])
+            })
         })
     })
     .catch(err => {
@@ -165,9 +169,12 @@ router.post('/decrement', (req, res) => {
   const locationStockId = req.body.id
   stock.deliverItems(locationStockId, req.body.quantity)
     .then(() => {
-      stock.getItemQty(locationStockId)
-        .then(decremented => {
-          res.json(decremented[0])
+      stock.updateLog(locationStockId, 'decrement')
+        .then(() => {
+          stock.getItemQty(locationStockId)
+            .then(decremented => {
+              res.json(decremented[0])
+            })
         })
     })
     .catch(err => {
