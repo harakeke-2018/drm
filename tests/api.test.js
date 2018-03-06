@@ -12,14 +12,6 @@ test.skip('Authenticate complains about no credentials', () => {
     })
 })
 
-test.skip('/api/v1/quote responds without token', () => {
-  return request(app)
-    .get('/api/v1/quote')
-    .then(res => {
-      expect(res.body).toEqual({message: 'This is a PUBLIC quote.'})
-    })
-})
-
 test.skip("/api/v1/secret 403's without token", () => {
   return request(app)
     .get('/api/v1/secret')

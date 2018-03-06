@@ -8,7 +8,7 @@ const initialState = {
 
 function updateQty (state, action) {
   const targetItem = state.items.find(item => {
-    return item.id === Number(action.locationStockId)
+    return item.locationStockId === Number(action.locationStockId)
   })
   targetItem.quantity = action.latestQty
   state.latestQty = ''
