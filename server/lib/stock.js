@@ -62,9 +62,9 @@ function deliverItems (locationStockId, qty, testDb) {
 
 function getLogsByLocationItemId (locationItemId, testDb) {
   const connection = testDb || knex
-  return connection('log')
-    .where('log.location_stock_id', locationItemId)
-    .orderBy('log.date', 'desc')
+  return connection('logs')
+    .where('logs.location_stock_id', locationItemId)
+    .orderBy('logs.date', 'desc')
     .select()
 }
 
@@ -77,7 +77,7 @@ function getItemQty (locationStockId, testDb) {
 
 function updateLog (id, activity, testDb) {
   const connection = testDb || knex
-  return connection('log')
+  return connection('logs')
     .insert({
       location_stock_id: id,
       activity: activity
