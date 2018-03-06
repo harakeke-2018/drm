@@ -9,7 +9,7 @@ class Log extends React.Component {
         <td>{active.updated_at}</td>
         {/* Location Name */}
         <td>{active.name}</td>
-        <td style={{margin: 'auto', textAlign: 'right', backgroundColor: redOrGreen}}>{active.quantity_changed}</td>
+        <td style={{margin: 'auto', textAlign: 'right', backgroundColor: redOrGreen, padding: '2.5%'}}>{active.quantity_changed}</td>
       </tr>
     )
   }

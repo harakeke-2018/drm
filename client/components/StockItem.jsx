@@ -12,13 +12,6 @@ class StockItem extends React.Component {
     this.state = {
       quantityChange: 0,
       logIsVisible: false,
-      logItems: [{ last_update: '29/1/2018', location: 'Auckland', changed: -25 },
-        { last_update: '1/1/2018', location: 'Mt Eden', changed: 50 },
-        { last_update: '29/11/2017', location: 'Mt Roskill Family Centre', changed: -500 },
-        { last_update: '1/1/2000', location: 'Auckland', changed: 999999 },
-        { last_update: '1/1/2018', location: 'Mt Eden', changed: 50 },
-        { last_update: '29/11/2017', location: 'Mt Roskill Family Centre', changed: -500 },
-        { last_update: '1/1/2000', location: 'Auckland', changed: 999999 }],
       logIsOpen: false,
       incrementIsOpen: false,
       decrementIsOpen: false
@@ -113,6 +106,7 @@ class StockItem extends React.Component {
 
         <Modal open={this.state.logIsOpen}
           onClose={this.closeModals} className='row'>
+          <h1></h1>
           <table>
             <tr>
               <th>Date</th>

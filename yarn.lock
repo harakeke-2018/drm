@@ -1213,9 +1213,25 @@ chalk@^2.0.0, chalk@^2.0.1:
     escape-string-regexp "^1.0.5"
     supports-color "^5.2.0"
 
-chartist@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/chartist/-/chartist-0.11.0.tgz#84ba5e05490d096d93dcfa9343ebc31ef6a3bd28"
+chart.js@^2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-2.7.2.tgz#3c9fde4dc5b95608211bdefeda7e5d33dffa5714"
+  dependencies:
+    chartjs-color "^2.1.0"
+    moment "^2.10.2"
+
+chartjs-color-string@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/chartjs-color-string/-/chartjs-color-string-0.5.0.tgz#8d3752d8581d86687c35bfe2cb80ac5213ceb8c1"
+  dependencies:
+    color-name "^1.0.0"
+
+chartjs-color@^2.1.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/chartjs-color/-/chartjs-color-2.2.0.tgz#84a2fb755787ed85c39dd6dd8c7b1d88429baeae"
+  dependencies:
+    chartjs-color-string "^0.5.0"
+    color-convert "^0.5.3"
 
 chokidar@^2.0.2:
   version "2.0.2"
@@ -1302,13 +1318,17 @@ collection-visit@^1.0.0:
     map-visit "^1.0.0"
     object-visit "^1.0.0"
 
+color-convert@^0.5.3:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-0.5.3.tgz#bdb6c69ce660fadffe0b0007cc447e1b9f7282bd"
+
 color-convert@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-1.9.1.tgz#c1261107aeb2f294ebffec9ed9ecad529a6097ed"
   dependencies:
     color-name "^1.1.1"
 
-color-name@^1.1.1:
+color-name@^1.0.0, color-name@^1.1.1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
 
@@ -3890,6 +3910,10 @@ moment@2.x.x:
   version "2.20.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
 
+moment@^2.10.2:
+  version "2.21.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.21.0.tgz#2a114b51d2a6ec9e6d83cf803f838a878d8a023a"
+
 ms@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
@@ -4632,10 +4656,11 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-chartist@^0.13.1:
-  version "0.13.1"
-  resolved "https://registry.yarnpkg.com/react-chartist/-/react-chartist-0.13.1.tgz#79cee44891dfd7008d555a7a5a623ab09c0b59d1"
+react-chartjs-2@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/react-chartjs-2/-/react-chartjs-2-2.7.0.tgz#14925143f7e5c59dc631d0d8279255b031c5561a"
   dependencies:
+    lodash "^4.17.4"
     prop-types "^15.5.8"
 
 react-dom@^16.2.0:
