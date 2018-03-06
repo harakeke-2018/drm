@@ -60,6 +60,8 @@ input[type="password"] {
 
 .hideOnShrink{
   display: block;
+  text-align: center;
+  margin: auto;
 }
 
 @media (max-width: 640px) 
@@ -67,11 +69,13 @@ input[type="password"] {
   .hideOnShrink
   {
       display: none !important;
+      text-align: center;
+  margin: auto;
   }
 }
 
 .showOnShrink{
-  display: none;
+  display: block;
 }
 
 @media (max-width: 850px) 

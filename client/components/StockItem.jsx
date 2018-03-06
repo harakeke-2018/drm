@@ -75,13 +75,13 @@ class StockItem extends React.Component {
     return (
       <div className='row'>
 
-        <div className='row' style={{textAlign: 'right'}}>
+        <div className='row' style={{textAlign: 'center'}}>
           <div className='three columns' style={{border: 'black solid 1px', margin: 'auto'}} onClick={this.openModals} >
             <p id='logIsOpen' style={{textAlign: 'center', margin: 'auto', padding: '2.5%'}}>{active.item}</p>
           </div>
           <p className='three columns' style={{textAlign: 'center', fontWeight: 'bold', margin: 'auto'}}>Stock: {active.quantity}</p>
 
-          <button className='two columns hideOnShrink' type='button' key={active.id} onClick={this.toggleLog}>{recentOrHide}</button>
+          <button className='two columns' id='hideOnShrink' type='button' key={active.id} onClick={this.toggleLog}>{recentOrHide}</button>
           <button className='one column' id='incrementIsOpen' onClick={this.openModals}>+</button>
           <button className='one column' id='decrementIsOpen' onClick={this.openModals}>-</button>
         </div>
