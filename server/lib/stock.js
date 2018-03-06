@@ -32,7 +32,7 @@ function getLocationStockByLocationId (locationId, testDb) {
   return connection('location_stock')
     .join('stock', 'location_stock.item_id', 'stock.id')
     .where('location_id', locationId)
-    .select()
+    .select('location_stock.id as id', 'stock.item', 'location_stock.quantity')
 }
 
 function getLastUpdate (locationId, testDb) {

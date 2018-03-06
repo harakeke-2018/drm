@@ -11,7 +11,7 @@ class Home extends React.Component {
     }
   }
 
-  componentDidMount () {
+  componentWillMount () {
     // is currently hard-coded, will need to use token
     this.props.loadItems(this.props.locationId)
   }
