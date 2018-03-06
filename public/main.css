@@ -6,8 +6,8 @@
 img {
   height: auto;
   width: auto;
-  max-width: 3rem;
-  max-height: 3rem;
+  max-width: 4rem;
+  max-height: 4rem;
 }
 
 h1 {
@@ -81,3 +81,61 @@ input[type="password"] {
       display: block !important;
   }
 }
+
+/* tabs css start */
+.react-tabs__tab-list {
+  border-bottom: 1px solid #aaa;
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+.react-tabs__tab {
+  display: inline-block;
+  border: 1px solid transparent;
+  border-bottom: none;
+  bottom: -1px;
+  position: relative;
+  list-style: none;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.react-tabs__tab--selected {
+  /* background: #fff; */
+  background: red;
+  border-color: #aaa;
+  /* color: black; */
+  color: #fff;
+  border-radius: 5px 5px 0 0;
+  font-weight: 100;
+}
+
+.react-tabs__tab--disabled {
+  color: GrayText;
+  cursor: default;
+}
+
+.react-tabs__tab:focus {
+  box-shadow: 0 0 5px hsl(208, 99%, 50%);
+  border-color: hsl(208, 99%, 50%);
+  outline: none;
+}
+
+.react-tabs__tab:focus:after {
+  content: "";
+  position: absolute;
+  height: 5px;
+  left: -4px;
+  right: -4px;
+  bottom: -5px;
+  background: #fff;
+}
+
+.react-tabs__tab-panel {
+  display: none;
+}
+
+.react-tabs__tab-panel--selected {
+  display: block;
+}
+/* tabs css end */

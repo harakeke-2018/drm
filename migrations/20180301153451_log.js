@@ -3,10 +3,10 @@ exports.up = (knex, Promise) => {
     if (!exists) {
       return knex.schema.createTable('log', table => {
         table.increments('id').primary()
-        table.integer('team_stock_id').references('team_stock.id')
+        table.integer('location_stock_id').references('location_stock.id')
         table.string('activity')
-        table.integer('operator_id').references('users.id')
-        table.string('date')
+        table.string('location')
+        table.timestamps(true, true)
       })
     }
   })
