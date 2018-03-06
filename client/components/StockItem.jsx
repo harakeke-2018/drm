@@ -67,10 +67,11 @@ class StockItem extends React.Component {
 
   updateAndCloseModal(e) {
     const action = (Number(e.target.id)) ? 'increment' : 'decrement'
-    this.props[action](this.props.item.id, this.state.quantityChange)
+    console.log('hi', this.props.item, 'yo', this.state.quantityChange)
+    this.props[action](this.props.item.locationStockId, this.state.quantityChange)
     const item = this.props.item
     // needs refactoring
-    item.quantity = (Number(e.target.id)) ? (this.props.item.quantity + this.state.quantityChange) : (this.props.item.quantity - this.state.quantityChange)
+    item.quantity = (Number(e.target.id)) ? (item.quantity + this.state.quantityChange) : (item.quantity - this.state.quantityChange)
     this.setState({
       item
     })

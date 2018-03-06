@@ -112,17 +112,6 @@ router.get('/locations', (req, res) => {
     })
 })
 
-// router.get('/stock', (req, res) => {
-//   // hard-coded team 1
-//   stock.getLocationStockByLocationId(1)
-//     .then(item => {
-//       res.json(item)
-//     })
-//     .catch(err => {
-//       res.status(400).send({message: err.message})
-//     })
-// })
-
 // get all stocks of a location
 router.get('/stock/:id', (req, res) => {
   const locationId = req.params.id
@@ -167,9 +156,10 @@ router.post('/increment', (req, res) => {
 // decrement quantity of a item
 router.post('/decrement', (req, res) => {
   const locationStockId = req.body.id
-  stock.deliverItems(locationStockId, req.body.quantity)
+  const amount = req.body.quantity
+  stock.deliverItems(locationStockId, amount)
     .then(() => {
-      stock.updateLog(locationStockId, 'decrement')
+      stock.updateLog(locationStockId, 'decrement', -Math.abs(amount))
         .then(() => {
           stock.getItemQty(locationStockId)
             .then(decremented => {
@@ -189,8 +179,5 @@ router.get('/secret', (req, res) => {
     user: `Your user ID is: ${req.user.id}`
   })
 })
-
-// getAllStockByOrgId
-// router.get()
 
 module.exports = router
