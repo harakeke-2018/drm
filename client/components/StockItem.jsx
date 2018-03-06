@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { deliverItems, increaseItems } from '../actions/stock'
-// import { requestLogs } from '../actions/logs'
 import Modal from 'react-responsive-modal'
 
 import Log from './Log'
@@ -22,11 +21,6 @@ class StockItem extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.updateAndCloseModal = this.updateAndCloseModal.bind(this)
   }
-
-  // componentDidMount () {
-  //   console.log(this.props.locationId)
-  //   // this.props.requestLogs(this.props.item.location_id)
-  //   }
 
   toggleLog () {
     this.setState({

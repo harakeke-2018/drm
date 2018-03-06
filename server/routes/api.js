@@ -80,20 +80,6 @@ router.get('/logs', (req, res) => {
     })
 })
 
-router.get('/quote',
-  verifyJwt({
-    credentialsRequired: false,
-    secret: getSecret
-  }),
-  (req, res) => {
-    const response = {message: 'This is a PUBLIC quote.'}
-    if (req.user) {
-      response.user = `Your user ID is: ${req.user.id}`
-    }
-    res.json(response)
-  }
-)
-
 // Protect all routes beneath this point
 router.use(
   verifyJwt({
@@ -171,14 +157,6 @@ router.post('/decrement', (req, res) => {
     .catch(err => {
       res.status(400).send({message: err.message})
     })
-})
-
-// These routes are protected
-router.get('/secret', (req, res) => {
-  res.json({
-    message: 'This is a SECRET quote.',
-    user: `Your user ID is: ${req.user.id}`
-  })
 })
 
 module.exports = router
