@@ -1,7 +1,7 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {deliverItems, increaseItems} from '../actions/stock'
-
+import { connect } from 'react-redux'
+import { deliverItems, increaseItems } from '../actions/stock'
+// import { requestLogs } from '../actions/logs'
 import Modal from 'react-responsive-modal'
 
 import Log from './Log'
@@ -12,13 +12,13 @@ class StockItem extends React.Component {
     this.state = {
       quantityChange: 0,
       logIsVisible: false,
-      logItems: [{last_update: '29/1/2018', location: 'Auckland', changed: -25},
-        {last_update: '1/1/2018', location: 'Mt Eden', changed: 50},
-        {last_update: '29/11/2017', location: 'Mt Roskill Family Centre', changed: -500},
-        {last_update: '1/1/2000', location: 'Auckland', changed: 999999},
-        {last_update: '1/1/2018', location: 'Mt Eden', changed: 50},
-        {last_update: '29/11/2017', location: 'Mt Roskill Family Centre', changed: -500},
-        {last_update: '1/1/2000', location: 'Auckland', changed: 999999}],
+      logItems: [{ last_update: '29/1/2018', location: 'Auckland', changed: -25 },
+        { last_update: '1/1/2018', location: 'Mt Eden', changed: 50 },
+        { last_update: '29/11/2017', location: 'Mt Roskill Family Centre', changed: -500 },
+        { last_update: '1/1/2000', location: 'Auckland', changed: 999999 },
+        { last_update: '1/1/2018', location: 'Mt Eden', changed: 50 },
+        { last_update: '29/11/2017', location: 'Mt Roskill Family Centre', changed: -500 },
+        { last_update: '1/1/2000', location: 'Auckland', changed: 999999 }],
       logIsOpen: false,
       incrementIsOpen: false,
       decrementIsOpen: false
@@ -30,9 +30,15 @@ class StockItem extends React.Component {
     this.updateAndCloseModal = this.updateAndCloseModal.bind(this)
   }
 
+  // componentDidMount () {
+  //   console.log(this.props.locationId)
+  //   // this.props.requestLogs(this.props.item.location_id)
+  //   }
+
   toggleLog () {
     this.setState({
-      logIsVisible: !this.state.logIsVisible})
+      logIsVisible: !this.state.logIsVisible
+    })
   }
 
   openModals (e) {
@@ -58,11 +64,10 @@ class StockItem extends React.Component {
 
   updateAndCloseModal (e) {
     const action = (Number(e.target.id)) ? 'increment' : 'decrement'
-    this.props[action](this.props.item.id, this.state.quantityChange)
+    this.props[action](this.props.item.locationStockId, this.state.quantityChange)
     const item = this.props.item
-    console.log(this.props.item.id)
     // needs refactoring
-    item.quantity = (Number(e.target.id)) ? (this.props.item.quantity + this.state.quantityChange) : (this.props.item.quantity - this.state.quantityChange)
+    item.quantity = (Number(e.target.id)) ? (item.quantity + this.state.quantityChange) : (item.quantity - this.state.quantityChange)
     this.setState({
       item
     })
@@ -74,33 +79,36 @@ class StockItem extends React.Component {
     const recentOrHide = !this.state.logIsVisible ? 'Recent' : 'Hide'
     return (
       <div className='row'>
-
-        <div className='row' style={{textAlign: 'right'}}>
+        <div className='row' style={{textAlign: 'center'}}>
           <div className='three columns' style={{border: 'black solid 1px', margin: 'auto'}} onClick={this.openModals} >
             <p id='logIsOpen' style={{textAlign: 'center', margin: 'auto', padding: '2.5%'}}>{active.item}</p>
           </div>
-          <p className='three columns' style={{textAlign: 'center', fontWeight: 'bold', margin: 'auto'}}>Stock: {active.quantity}</p>
+          <p className='three columns' style={{ textAlign: 'center', fontWeight: 'bold', margin: 'auto' }}>Stock: {active.quantity}</p>
 
-          <button className='two columns hideOnShrink' type='button' key={active.id} onClick={this.toggleLog}>{recentOrHide}</button>
+          <button className='two columns' id='hideOnShrink' type='button' key={active.id} onClick={this.toggleLog}>{recentOrHide}</button>
           <button className='one column' id='incrementIsOpen' onClick={this.openModals}>+</button>
           <button className='one column' id='decrementIsOpen' onClick={this.openModals}>-</button>
         </div>
 
         <div className='row'>
           {this.state.logIsVisible &&
-          <div>
-            <table style={{margin: 'auto'}}>
-              <tr>
-                <th>Date</th>
-                <th>Location</th>
-                <th>Stock Change</th>
-              </tr>
-              {this.state.logItems.map((logItem, id) => {
-                // return only three recent log items
-                return id < 3 && <Log key={id} item={logItem} />
-              })}
-            </table>
-          </div>}
+            <div>
+              <table style={{ margin: 'auto' }}>
+                <tr>
+                  <th>Date</th>
+                  <th>Location</th>
+                  <th>Stock Change</th>
+                </tr>
+                {this.props.logs.map((logItem, id) => {
+                  // return only three recent log items
+                  if (active.stockId === logItem.item_id) {
+                    return id < 3 && <Log key={logItem.location_stock_id} item={logItem} />
+                  } else {
+                    id -= 1
+                  }
+                })}
+              </table>
+            </div>}
         </div>
 
         <Modal open={this.state.logIsOpen}
@@ -111,8 +119,12 @@ class StockItem extends React.Component {
               <th>Location</th>
               <th>Stock Change</th>
             </tr>
-            {this.state.logItems.map((logItem, id) => {
-              return <Log key={id} item={logItem} />
+            {this.props.logs.map((logItem, id) => {
+              if (active.stockId === logItem.item_id) {
+                return <Log key={id} item={logItem} />
+              } else {
+                null
+              }
             })}
           </table>
         </Modal>
@@ -122,7 +134,7 @@ class StockItem extends React.Component {
           onClose={this.closeModals} className='row'>
           <p>Add Stock</p>
           <h5>Quantity:</h5>
-          <input onChange={this.handleChange}/>
+          <input onChange={this.handleChange} />
           <button id='1' onClick={this.updateAndCloseModal}>Add</button>
 
         </Modal>
@@ -132,7 +144,7 @@ class StockItem extends React.Component {
           onClose={this.closeModals} className='row'>
           <p>Remove Stock</p>
           <h5>Quantity:</h5>
-          <input onChange={this.handleChange}/>
+          <input onChange={this.handleChange} />
           <button id='0' onClick={this.updateAndCloseModal}>Reduce</button>
         </Modal>
       </div>
@@ -144,7 +156,7 @@ const mapStateToProps = (state) => {
   return {
     items: state.stock.items,
     latestQty: state.stock.latestQty,
-    logItems: state.stock.logItems
+    logs: state.logs
   }
 }
 

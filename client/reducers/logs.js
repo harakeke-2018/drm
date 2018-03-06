@@ -1,14 +1,11 @@
-import {RECEIVE_ITEMS, DELIVER_ITEMS} from '../actions/stock'
-import { REQUEST_LOGS } from '../actions/logs';
+import { RECEIVE_LOGS } from '../actions/logs';
 
-const initialState = {
-    logs: []
-}
+const initialState = [{id: 0, item: 'loading'}]
 
 export default function logs (state = initialState, action) {
     switch (action.type) {
-        case REQUEST_LOGS:
-            return {...state, items: action.logs}
+        case RECEIVE_LOGS:
+            return action.logs
         default: 
             return state
     }
