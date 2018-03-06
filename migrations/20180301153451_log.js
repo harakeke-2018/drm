@@ -6,7 +6,7 @@ exports.up = (knex, Promise) => {
         table.integer('location_stock_id').references('location_stock.id')
         table.string('activity')
         table.string('location')
-        table.string('date')
+        table.timestamps(true, true)
       })
     }
   })
