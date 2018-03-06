@@ -5,16 +5,16 @@ export const RECEIVE_LOGS = 'RECEIVE_LOGS'
 
 export const receiveLogs = (logs) => {
   return {
-    type: REQUEST_LOGS,
+    type: RECEIVE_LOGS,
     logs: logs
   }
 }
 
-export function requestLogs (locationId, stockId) {
+export function requestLogs (locationId) {
   return (dispatch) => {
-    request('get', '/logs', {locationId: locationId, stockId: stockId})
+    request('get', '/logs', {locationId: locationId})
       .then(res => {
-        dispatch(receiveLogs(res.body[0]))
+        dispatch(receiveLogs(res.body))
       })
   }
 }

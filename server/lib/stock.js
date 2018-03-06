@@ -10,7 +10,8 @@ module.exports = {
   receiveItems,
   deliverItems,
   getLogsByLocationItemId,
-  getItemQty
+  getItemQty,
+  updateLog
   // deleteStock
 }
 
@@ -72,4 +73,14 @@ function getItemQty (locationStockId, testDb) {
   return connection('location_stock')
     .where('location_stock.id', locationStockId)
     .select('quantity')
+}
+
+function updateLog (id, activity, timestamp, testDb) {
+  const connection = testDb || knex
+  return connection('log')
+    .insert({
+      location_stock_id: id,
+      activity: activity,
+      date: timestamp
+    })
 }

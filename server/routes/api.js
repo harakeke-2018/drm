@@ -70,10 +70,8 @@ function getSecret (req, payload, done) {
 
 // This route will set the req.user object if it exists, but is still public
 router.get('/logs', (req, res) => {
-  console.log('Reached here', req.query)
-  logs.getLogs(req.query.locationId, req.query.stockId)
+  logs.getLogs(req.query.locationId)
     .then(log => {
-      console.log(log)
       res.json(log)
     })
     .catch(err => {
@@ -95,17 +93,6 @@ router.get('/quote',
   }
 )
 
-router.get('/stock', (req, res) => {
-  // hard-coded team 1
-  stock.getLocationStockByLocationId(1)
-    .then(item => {
-      res.json(item)
-    })
-    .catch(err => {
-      res.status(400).send({message: err.message})
-    })
-})
-
 // Protect all routes beneath this point
 router.use(
   verifyJwt({
@@ -113,6 +100,27 @@ router.use(
   }),
   auth.handleError
 )
+
+router.get('/locations', (req, res) => {
+  stock.getLocation()
+    .then(locations => {
+      res.json(locations)
+    })
+    .catch(err => {
+      res.status(400).send({message: err.message})
+    })
+})
+
+// router.get('/stock', (req, res) => {
+//   // hard-coded team 1
+//   stock.getLocationStockByLocationId(1)
+//     .then(item => {
+//       res.json(item)
+//     })
+//     .catch(err => {
+//       res.status(400).send({message: err.message})
+//     })
+// })
 
 // get all stocks of a location
 router.get('/stock/:id', (req, res) => {
@@ -143,9 +151,9 @@ router.post('/increment', (req, res) => {
   stock.receiveItems(locationStockId, req.body.quantity)
     .then(() => {
       stock.getItemQty(locationStockId)
-           .then(incremented => {
-             res.json(incremented[0])
-      })
+        .then(incremented => {
+          res.json(incremented[0])
+        })
     })
     .catch(err => {
       res.status(400).send({message: err.message})
@@ -161,11 +169,10 @@ router.post('/decrement', (req, res) => {
         .then(decremented => {
           res.json(decremented[0])
         })
-        .catch(err => {
-          res.status(400).send({message: err.message})
-        })
     })
-    
+    .catch(err => {
+      res.status(400).send({message: err.message})
+    })
 })
 
 // These routes are protected
@@ -175,7 +182,6 @@ router.get('/secret', (req, res) => {
     user: `Your user ID is: ${req.user.id}`
   })
 })
-
 
 // getAllStockByOrgId
 // router.get()
