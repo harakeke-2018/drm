@@ -30,9 +30,11 @@ class StockItem extends React.Component {
     this.updateAndCloseModal = this.updateAndCloseModal.bind(this)
   }
 
-  componentWillUpdate() {
-    this.props.requestLogs(this.props.item.location_id)
+  componentDidMount() {
+    console.log(this.props.locationId)
+    // this.props.requestLogs(this.props.item.location_id)
     }
+  
 
   toggleLog() {
     this.setState({
@@ -102,10 +104,12 @@ class StockItem extends React.Component {
                   <th>Stock Change</th>
                 </tr>
                 {this.props.logs.map((logItem, id) => {
+                  console.log(this.props.logs)
                   // return only three recent log items
-                  if (active.id === logItem.item_id) {
-                    return id < 3 && <Log key={id} item={logItem} />
+                  if (active.stockId === logItem.item_id) {
+                    return id < 3 && <Log key={logItem.location_stock_id} item={logItem} />
                   } else {
+                    console.log('Didn\'t succeed')
                     id -= 1
                   }
                 })}
@@ -122,7 +126,7 @@ class StockItem extends React.Component {
               <th>Stock Change</th>
             </tr>
             {this.props.logs.map((logItem, id) => {
-              if (active.id === logItem.item_id) {
+              if (active.stockId === logItem.item_id) {
                 return <Log key={id} item={logItem} />
               } else {
                 null
@@ -164,9 +168,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    requestLogs: (locationId) => {
-      return dispatch(requestLogs(locationId))
-    },
     decrement: (item, qty) => {
       return dispatch(deliverItems(item, qty))
     },
