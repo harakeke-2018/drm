@@ -138,9 +138,10 @@ router.get('/logs/:id', (req, res) => {
 // increment quantity of a item
 router.post('/increment', (req, res) => {
   const locationStockId = req.body.id
-  stock.receiveItems(locationStockId, req.body.quantity)
+  const amount = req.body.quantity
+  stock.receiveItems(locationStockId, amount)
     .then(() => {
-      stock.updateLog(locationStockId, 'increment')
+      stock.updateLog(locationStockId, 'increment', amount)
         .then(() => {
           stock.getItemQty(locationStockId)
             .then(incremented => {
