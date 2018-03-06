@@ -1,11 +1,12 @@
 exports.up = (knex, Promise) => {
-  return knex.schema.hasTable('log').then(function (exists) {
+  return knex.schema.hasTable('logs').then(function (exists) {
     if (!exists) {
-      return knex.schema.createTable('log', table => {
+      return knex.schema.createTable('logs', table => {
         table.increments('id').primary()
-        table.integer('location_stock_id').references('location_stock.id')
+        table.integer('location_stock_id').references('location_stock.item_id')
+        table.integer('past_location_id').references('location.id')
         table.string('activity')
-        table.string('location')
+        table.integer('quantity_changed')
         table.timestamps(true, true)
       })
     }

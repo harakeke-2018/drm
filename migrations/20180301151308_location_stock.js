@@ -5,6 +5,7 @@ exports.up = (knex, Promise) => {
         table.increments('id').primary()
         table.integer('item_id').references('stock.id')
         table.integer('location_id').references('location.id')
+        table.integer('log_id').references('log.id')
         table.integer('quantity')
         table.timestamps(true, true)
       })
