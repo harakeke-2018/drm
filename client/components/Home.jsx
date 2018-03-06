@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import {requestItems} from '../actions/stock'
 import {requestLogs} from '../actions/logs'
 
+import ChartistGraph from 'react-chartist';
+
 import StockItem from './StockItem'
 
 class Home extends React.Component {
