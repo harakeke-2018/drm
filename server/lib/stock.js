@@ -39,7 +39,7 @@ function getLastUpdate (locationId, testDb) {
   const connection = testDb || knex
   return connection('location_stock')
     .where('location_stock.location_id', locationId)
-    .select('last_update')
+    .select('updated_at')
 }
 
 // increasing the qty of a stock item
@@ -64,7 +64,7 @@ function getLogsByLocationItemId (locationItemId, testDb) {
   const connection = testDb || knex
   return connection('logs')
     .where('logs.location_stock_id', locationItemId)
-    .orderBy('logs.date', 'desc')
+    .orderBy('logs.updated_at', 'desc')
     .select()
 }
 
@@ -75,11 +75,12 @@ function getItemQty (locationStockId, testDb) {
     .select('quantity')
 }
 
-function updateLog (id, activity, testDb) {
+function updateLog (id, activity, quantity, testDb) {
   const connection = testDb || knex
   return connection('logs')
     .insert({
       location_stock_id: id,
-      activity: activity
+      activity: activity,
+      quantity_changed: quantity
     })
 }

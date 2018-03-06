@@ -20,7 +20,7 @@ test('test harness is working', () => {
 test('getStock returns all potential stock items', () => {
   return stock.getStock(testDb)
     .then(stock => {
-      expect(stock.length).toBe(3)
+      expect(stock.length).toBe(9)
     })
 })
 
@@ -41,7 +41,7 @@ test('getLocationStockByLocationId returns a locations items', () => {
 test('getLastUpdate returns the last update from a location', () => {
   return stock.getLastUpdate(1, testDb)
     .then(lastUpdate => {
-      expect(lastUpdate[0].last_update).toBe('29/02/2016')
+      expect(lastUpdate[0].updated_at).toMatch(/2018-03/)
     })
 })
 
@@ -62,12 +62,12 @@ test('deliverItems can successfully update an existing row', () => {
 test('getLogsByLocationItemId can get logs for a location', () => {
   return stock.getLogsByLocationItemId(2, testDb)
     .then(log => {
-      expect(log[0].date).toBe('Thursday 1 March 2018')
+      expect(log[0].created_at).toMatch(/2018-03/)
     })
 })
 
 test('updateLog can insert a new row of 4 columns into Log table', () => {
-  return stock.updateLog(1, 'increment', '2018/02/11', testDb)
+  return stock.updateLog(1, 'increment', 50, testDb)
     .then(res => {
       expect(res).toEqual([4])
     })
