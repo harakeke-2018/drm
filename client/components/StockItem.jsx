@@ -68,10 +68,8 @@ class StockItem extends React.Component {
     // console.log(a)
     const active = this.props.item
     const recentOrHide = !this.state.logIsVisible ? 'Recent' : 'Hide'
-    const activeLogs = this.props.logs.filter(logItem => {
+    let activeLogs = this.props.logs.filter(logItem => {
       if (logItem.item_id === active.locationStockId) {
-        // const dateFormat = moment(logItem.updated_at).format('MMMM Do YYYY, h:mm a')
-        // logItem.updated_at = dateFormat
         return logItem
       }
     })
