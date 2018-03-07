@@ -100,6 +100,7 @@ class StockItem extends React.Component {
 
         <Modal open={this.state.logIsOpen}
           onClose={this.closeModals} className='row'>
+          <h1></h1>
           <table>
             <tr>
               <th>Date</th>
