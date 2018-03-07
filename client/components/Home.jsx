@@ -41,6 +41,7 @@ class Home extends React.Component {
       graphLabels: [],
       graphData: []
     }
+    this.refresh = this.refresh.bind(this)
   }
 
   componentWillMount() {
@@ -59,6 +60,10 @@ class Home extends React.Component {
       this.setState({graphLabels: graphLabels, graphData: graphData})
     }
 
+    refresh () {
+      this.props.loadItems(this.props.locationId)
+      this.props.requestLogs(this.props.locationId)
+    }
   render() {
 
 
@@ -68,7 +73,7 @@ class Home extends React.Component {
           <h2 style={{ textAlign: 'center' }}>{this.props.location} Stock</h2>
           {this.props.items.map((item, id) => {
             return <div key={id}>
-              <StockItem item={item} locationId={item.location_id} />
+              <StockItem refresh={this.refresh} item={item} locationId={item.location_id} />
             </div>
           })}
           <h1></h1>
