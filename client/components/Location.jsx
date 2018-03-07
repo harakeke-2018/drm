@@ -4,6 +4,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import Home from './Home'
 import {getLocations} from '../actions/stock'
 
+import Logout from './Logout'
+
 class Location extends React.Component {
   constructor () {
     super()
@@ -23,8 +25,11 @@ class Location extends React.Component {
 
   render () {
     return (
-      <div className="app">
-        <Tabs selectedIndex={this.state.tabIndex} onSelect={this.handleSelect}>
+      <div className="row app">
+        <div className='one column'>
+          <p></p>
+        </div>
+        <Tabs className='ten columns' selectedIndex={this.state.tabIndex} onSelect={this.handleSelect}>
           <TabList>
             {this.props.locations.map((location, id) => {
               return (
@@ -38,6 +43,9 @@ class Location extends React.Component {
             )
           })}
         </Tabs>
+        <div className = "logout one column" align="center">
+          {this.props.isAuthenticated && <Logout />}
+        </div>
       </div>
     )
   }
@@ -45,7 +53,8 @@ class Location extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    locations: state.stock.locations
+    locations: state.stock.locations,
+    isAuthenticated: state.auth.isAuthenticated
   }
 }
 

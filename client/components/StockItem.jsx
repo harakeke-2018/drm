@@ -60,6 +60,7 @@ class StockItem extends React.Component {
     this.setState({
       item
     })
+    this.props.refresh()
     this.closeModals()
   }
 

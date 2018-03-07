@@ -2,8 +2,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import Logout from './Logout'
-
 const Header = ({isAuthenticated}) => {
   return (
     <div id="header">
@@ -11,9 +9,6 @@ const Header = ({isAuthenticated}) => {
         <span className ='title'>Re:Source <img src="/lifesaver.png" alt="lifesaver image"></img>
         </span>
       </h1>
-      <div className = "logout" align="right">
-        {isAuthenticated && <Logout />}
-      </div>
     </div>
   )
 }
