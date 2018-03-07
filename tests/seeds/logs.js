@@ -13,7 +13,10 @@ exports.seed = function (knex, Promise) {
         { id: 6, location_stock_id: 6, past_location_id: 1, quantity_changed: 120, activity: '' },
         { id: 7, location_stock_id: 7, past_location_id: 2, quantity_changed: -20, activity: '' },
         { id: 8, location_stock_id: 8, past_location_id: 2, quantity_changed: 50, activity: '' },
-        { id: 9, location_stock_id: 9, past_location_id: 3, quantity_changed: -30, activity: '' }
+        { id: 9, location_stock_id: 9, past_location_id: 3, quantity_changed: -30, activity: '' },
+        { id: 10, location_stock_id: 10, past_location_id: 3, quantity_changed: -40, activity: '' },
+        { id: 11, location_stock_id: 12, past_location_id: 3, quantity_changed: -50, activity: '' }
+
       ])
     })
 }

@@ -23,7 +23,14 @@ exports.seed = function (knex, Promise) {
         {id: 13, item_id: 7, location_id: 3, quantity: 10},
         {id: 14, item_id: 4, location_id: 2, quantity: 20},
         {id: 15, item_id: 8, location_id: 3, quantity: 50},
-        {id: 16, item_id: 9, location_id: 1, quantity: 20}
+        {id: 16, item_id: 9, location_id: 1, quantity: 13},
+        {id: 17, item_id: 10, location_id: 1, quantity: 1},
+        {id: 18, item_id: 11, location_id: 1, quantity: 3},
+        {id: 19, item_id: 12, location_id: 2, quantity: 18},
+        {id: 20, item_id: 13, location_id: 3, quantity: 1},
+        {id: 21, item_id: 14, location_id: 3, quantity: 35},
+        {id: 22, item_id: 15, location_id: 2, quantity: 8},
+        {id: 23, item_id: 16, location_id: 3, quantity: 50},
       ])
     })
 }
