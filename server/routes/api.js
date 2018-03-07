@@ -72,7 +72,6 @@ function getSecret (req, payload, done) {
 router.get('/logs', (req, res) => {
   logs.getLogs(req.query.locationId)
     .then(log => {
-
       res.json(log)
     })
     .catch(err => {

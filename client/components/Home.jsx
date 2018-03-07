@@ -16,7 +16,6 @@ class Home extends React.Component {
     // is currently hard-coded, will need to use token
     this.props.loadItems(this.props.locationId)
     this.props.requestLogs(this.props.locationId)
-
   }
 
   render () {
