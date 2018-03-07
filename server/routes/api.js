@@ -79,20 +79,6 @@ router.get('/logs', (req, res) => {
     })
 })
 
-router.get('/quote',
-  verifyJwt({
-    credentialsRequired: false,
-    secret: getSecret
-  }),
-  (req, res) => {
-    const response = {message: 'This is a PUBLIC quote.'}
-    if (req.user) {
-      response.user = `Your user ID is: ${req.user.id}`
-    }
-    res.json(response)
-  }
-)
-
 // Protect all routes beneath this point
 router.use(
   verifyJwt({
@@ -110,17 +96,6 @@ router.get('/locations', (req, res) => {
       res.status(400).send({message: err.message})
     })
 })
-
-// router.get('/stock', (req, res) => {
-//   // hard-coded team 1
-//   stock.getLocationStockByLocationId(1)
-//     .then(item => {
-//       res.json(item)
-//     })
-//     .catch(err => {
-//       res.status(400).send({message: err.message})
-//     })
-// })
 
 // get all stocks of a location
 router.get('/stock/:id', (req, res) => {
@@ -148,9 +123,10 @@ router.get('/logs/:id', (req, res) => {
 // increment quantity of a item
 router.post('/increment', (req, res) => {
   const locationStockId = req.body.id
-  stock.receiveItems(locationStockId, req.body.quantity)
+  const amount = req.body.quantity
+  stock.receiveItems(locationStockId, amount)
     .then(() => {
-      stock.updateLog(locationStockId, 'increment')
+      stock.updateLog(locationStockId, 'increment', amount)
         .then(() => {
           stock.getItemQty(locationStockId)
             .then(incremented => {
@@ -166,9 +142,10 @@ router.post('/increment', (req, res) => {
 // decrement quantity of a item
 router.post('/decrement', (req, res) => {
   const locationStockId = req.body.id
-  stock.deliverItems(locationStockId, req.body.quantity)
+  const amount = req.body.quantity
+  stock.deliverItems(locationStockId, amount)
     .then(() => {
-      stock.updateLog(locationStockId, 'decrement')
+      stock.updateLog(locationStockId, 'decrement', -Math.abs(amount))
         .then(() => {
           stock.getItemQty(locationStockId)
             .then(decremented => {
@@ -180,16 +157,5 @@ router.post('/decrement', (req, res) => {
       res.status(400).send({message: err.message})
     })
 })
-
-// These routes are protected
-router.get('/secret', (req, res) => {
-  res.json({
-    message: 'This is a SECRET quote.',
-    user: `Your user ID is: ${req.user.id}`
-  })
-})
-
-// getAllStockByOrgId
-// router.get()
 
 module.exports = router

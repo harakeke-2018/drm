@@ -1,24 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { deliverItems, increaseItems } from '../actions/stock'
-import { requestLogs } from '../actions/logs'
 import Modal from 'react-responsive-modal'
 
 import Log from './Log'
 
 class StockItem extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       quantityChange: 0,
       logIsVisible: false,
-      logItems: [{ last_update: '29/1/2018', location: 'Auckland', changed: -25 },
-      { last_update: '1/1/2018', location: 'Mt Eden', changed: 50 },
-      { last_update: '29/11/2017', location: 'Mt Roskill Family Centre', changed: -500 },
-      { last_update: '1/1/2000', location: 'Auckland', changed: 999999 },
-      { last_update: '1/1/2018', location: 'Mt Eden', changed: 50 },
-      { last_update: '29/11/2017', location: 'Mt Roskill Family Centre', changed: -500 },
-      { last_update: '1/1/2000', location: 'Auckland', changed: 999999 }],
       logIsOpen: false,
       incrementIsOpen: false,
       decrementIsOpen: false
@@ -30,28 +22,20 @@ class StockItem extends React.Component {
     this.updateAndCloseModal = this.updateAndCloseModal.bind(this)
   }
 
-  componentDidMount() {
-    console.log(this.props.locationId)
-    // this.props.requestLogs(this.props.item.location_id)
-    }
-  
-
-  toggleLog() {
+  toggleLog () {
     this.setState({
       logIsVisible: !this.state.logIsVisible
     })
   }
 
-
-
-  openModals(e) {
+  openModals (e) {
     this.setState({
       [e.target.id]: !this.state[e.target.id]
     })
   }
 
   // this could be tidier
-  closeModals() {
+  closeModals () {
     this.setState({
       logIsOpen: false,
       incrementIsOpen: false,
@@ -59,18 +43,18 @@ class StockItem extends React.Component {
     })
   }
 
-  handleChange(e) {
+  handleChange (e) {
     this.setState({
       quantityChange: Number(e.target.value)
     })
   }
 
-  updateAndCloseModal(e) {
+  updateAndCloseModal (e) {
     const action = (Number(e.target.id)) ? 'increment' : 'decrement'
-    this.props[action](this.props.item.id, this.state.quantityChange)
+    this.props[action](this.props.item.locationStockId, this.state.quantityChange)
     const item = this.props.item
     // needs refactoring
-    item.quantity = (Number(e.target.id)) ? (this.props.item.quantity + this.state.quantityChange) : (this.props.item.quantity - this.state.quantityChange)
+    item.quantity = (Number(e.target.id)) ? (item.quantity + this.state.quantityChange) : (item.quantity - this.state.quantityChange)
     this.setState({
       item
     })
@@ -103,12 +87,10 @@ class StockItem extends React.Component {
                   <th>Stock Change</th>
                 </tr>
                 {this.props.logs.map((logItem, id) => {
-                  console.log(this.props.logs)
                   // return only three recent log items
                   if (active.stockId === logItem.item_id) {
                     return id < 3 && <Log key={logItem.location_stock_id} item={logItem} />
                   } else {
-                    console.log('Didn\'t succeed')
                     id -= 1
                   }
                 })}
