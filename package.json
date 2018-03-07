@@ -1,7 +1,7 @@
 {
-  "name": "boilerplate-local-jwt-auth",
+  "name": "drm",
   "version": "0.2.0",
-  "description": "Local Passport strategy boilerplate using libsodium and JWTs",
+  "description": "disaster resource management app",
   "main": "server/index.js",
   "author": "EDA",
   "license": "ISC",
