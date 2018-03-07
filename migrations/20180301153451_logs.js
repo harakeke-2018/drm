@@ -13,4 +13,4 @@ exports.up = (knex, Promise) => {
   })
 }
 
-exports.down = knex => knex.schema.dropTable('log')
+exports.down = knex => knex.schema.dropTable('logs')
