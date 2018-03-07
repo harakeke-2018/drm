@@ -36,7 +36,7 @@ class LoginForm extends React.Component {
   render () {
     return (
       <div className="container login">
-        <img src="/harakeke.jpg" alt="harakeke background" className="login-background"/>
+        <img src="/ocean.jpg" alt="harakeke background" className="login-background"/>
         <div className="wrapper">
           <div name="Login_Form" className="form-signin">
             <h1 className="form-signin-heading">Disaster Resource Management</h1>
