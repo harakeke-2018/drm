@@ -64,6 +64,7 @@ class Home extends React.Component {
       this.props.loadItems(this.props.locationId)
       this.props.requestLogs(this.props.locationId)
     }
+
   render() {
 
 
@@ -85,6 +86,7 @@ class Home extends React.Component {
             }],
             labels: this.state.graphLabels
           }} />
+          <h1></h1>
         </div>
       </div>
     )
