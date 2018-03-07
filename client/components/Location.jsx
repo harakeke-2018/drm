@@ -23,20 +23,22 @@ class Location extends React.Component {
 
   render () {
     return (
-      <Tabs selectedIndex={this.state.tabIndex} onSelect={this.handleSelect}>
-        <TabList>
+      <div className="app">
+        <Tabs selectedIndex={this.state.tabIndex} onSelect={this.handleSelect}>
+          <TabList>
+            {this.props.locations.map((location, id) => {
+              return (
+                <Tab key={id}>{location.name}</Tab>
+              )
+            })}
+          </TabList>
           {this.props.locations.map((location, id) => {
             return (
-              <Tab key={id}>{location.name}</Tab>
+              <TabPanel key={id}><Home location={location.name} locationId={location.id} /></TabPanel>
             )
           })}
-        </TabList>
-        {this.props.locations.map((location, id) => {
-          return (
-            <TabPanel key={id}><Home location={location.name} locationId={location.id} /></TabPanel>
-          )
-        })}
-      </Tabs>
+        </Tabs>
+      </div>
     )
   }
 }
