@@ -3,6 +3,7 @@
 const testEnv = require('./test-environment')
 
 const stock = require('../server/lib/stock')
+const logs = require('../server/lib/logs')
 
 let testDb = null
 
@@ -62,7 +63,7 @@ test('deliverItems can successfully update an existing row', () => {
 test('getLogsByLocationItemId can get logs for a location', () => {
   return stock.getLogsByLocationItemId(2, testDb)
     .then(log => {
-      expect(log[0].created_at).toMatch(/2018-03/)
+      expect(log).toMatch(/2018-03/)
     })
 })
 
@@ -70,5 +71,12 @@ test('updateLog can insert a new row of 4 columns into Log table', () => {
   return stock.updateLog(1, 'increment', 50, testDb)
     .then(res => {
       expect(res).toEqual([4])
+    })
+})
+
+test('getLogs gets logs', () => {
+  return stock.getLogs(3, testDb)
+    .then(logs => {
+      expect(logs[0]).toBe('hi')
     })
 })

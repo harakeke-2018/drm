@@ -5,6 +5,8 @@ import Modal from 'react-responsive-modal'
 
 import Log from './Log'
 
+let moment = require('moment');
+
 class StockItem extends React.Component {
   constructor (props) {
     super(props)
@@ -62,8 +64,17 @@ class StockItem extends React.Component {
   }
 
   render () {
+    let a = moment('2018-03-07 02:23:32')
+    // console.log(a)
     const active = this.props.item
     const recentOrHide = !this.state.logIsVisible ? 'Recent' : 'Hide'
+    let activeLogs = this.props.logs.filter(logItem => {
+      if (logItem.item_id === active.locationStockId) {
+        return logItem
+      }
+    })
+
+
     return (
       <div className='stocklist'>
         <div className='row' style={{textAlign: 'center'}}>
@@ -86,12 +97,12 @@ class StockItem extends React.Component {
                   <th>Location</th>
                   <th>Stock Change</th>
                 </tr>
-                {this.props.logs.map((logItem, id) => {
-                  // return only three recent log items
-                  if (active.stockId === logItem.item_id) {
-                    return id < 3 && <Log key={logItem.location_stock_id} item={logItem} />
-                  } else {
-                    id -= 1
+                {console.log(activeLogs)}
+                  {activeLogs.map((logItem, id) => {
+                                  logItem.updated_at = moment(logItem.updated_at).format('MMMM Do YYYY, h:mm a')
+
+                  if (id < 3) {
+                    return <Log key={id} item={logItem} />
                   }
                 })}
               </table>
@@ -106,12 +117,8 @@ class StockItem extends React.Component {
               <th>Location</th>
               <th>Stock Change</th>
             </tr>
-            {this.props.logs.map((logItem, id) => {
-              if (active.stockId === logItem.item_id) {
-                return <Log key={id} item={logItem} />
-              } else {
-                null
-              }
+            {activeLogs.map((logItem, id) => {
+              return <Log key={id} item={logItem} />
             })}
           </table>
         </Modal>
