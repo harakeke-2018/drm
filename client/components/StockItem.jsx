@@ -12,13 +12,6 @@ class StockItem extends React.Component {
     this.state = {
       quantityChange: 0,
       logIsVisible: false,
-      logItems: [{ last_update: '29/1/2018', location: 'Auckland', changed: -25 },
-        { last_update: '1/1/2018', location: 'Mt Eden', changed: 50 },
-        { last_update: '29/11/2017', location: 'Mt Roskill Family Centre', changed: -500 },
-        { last_update: '1/1/2000', location: 'Auckland', changed: 999999 },
-        { last_update: '1/1/2018', location: 'Mt Eden', changed: 50 },
-        { last_update: '29/11/2017', location: 'Mt Roskill Family Centre', changed: -500 },
-        { last_update: '1/1/2000', location: 'Auckland', changed: 999999 }],
       logIsOpen: false,
       incrementIsOpen: false,
       decrementIsOpen: false
@@ -29,11 +22,6 @@ class StockItem extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.updateAndCloseModal = this.updateAndCloseModal.bind(this)
   }
-
-  // componentDidMount () {
-  //   console.log(this.props.locationId)
-  //   // this.props.requestLogs(this.props.item.location_id)
-  //   }
 
   toggleLog () {
     this.setState({
@@ -77,6 +65,12 @@ class StockItem extends React.Component {
   render () {
     const active = this.props.item
     const recentOrHide = !this.state.logIsVisible ? 'Recent' : 'Hide'
+    const activeLogs = this.props.logs.filter(logItem => {
+      if (logItem.item_id === active.locationStockId) {
+        return logItem
+      }
+    })
+    
     return (
       <div className='row'>
         <div className='row' style={{textAlign: 'center'}}>
@@ -99,12 +93,9 @@ class StockItem extends React.Component {
                   <th>Location</th>
                   <th>Stock Change</th>
                 </tr>
-                {this.props.logs.map((logItem, id) => {
-                  // return only three recent log items
-                  if (active.stockId === logItem.item_id) {
-                    return id < 3 && <Log key={logItem.location_stock_id} item={logItem} />
-                  } else {
-                    id -= 1
+                {activeLogs.map((logItem, id) => {
+                  if (id < 3) {
+                    return <Log key={id} item={logItem} />
                   }
                 })}
               </table>
@@ -119,12 +110,8 @@ class StockItem extends React.Component {
               <th>Location</th>
               <th>Stock Change</th>
             </tr>
-            {this.props.logs.map((logItem, id) => {
-              if (active.stockId === logItem.item_id) {
-                return <Log key={id} item={logItem} />
-              } else {
-                null
-              }
+            {activeLogs.map((logItem, id) => {
+              return <Log key={id} item={logItem} />
             })}
           </table>
         </Modal>
