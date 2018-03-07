@@ -1,6 +1,17 @@
 .wrapper {    
 	margin-top: 80px;
-	margin-bottom: 20px;
+  margin-bottom: 20px;
+ 
+}
+.login-background {
+  z-index: -1;
+  min-height: 100%;
+  min-width: 100%;
+  position: fixed;
+  width: 100%;
+  height: auto;
+  top: 0;
+  left: 0;
 }
 
 img {
@@ -13,6 +24,7 @@ img {
 h1, h2 {
   text-align: center;
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-weight: bold;
 }
 
 .form-signin {
@@ -47,6 +59,15 @@ input[type="password"] {
   border-top-right-radius: 0;
 }
 
+/* item table modal css */
+
+.item-table {
+  margin-top: 20px; 
+}
+
+.modal-button {
+  margin-left: 5px
+}
 .colorgraph {
   height: 7px;
   border-top: 0;
