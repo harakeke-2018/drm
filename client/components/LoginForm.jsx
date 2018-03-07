@@ -35,7 +35,8 @@ class LoginForm extends React.Component {
 
   render () {
     return (
-      <div className="container">
+      <div className="container login">
+        <img src="/harakeke.jpg" alt="harakeke background" className="login-background"/>
         <div className="wrapper">
           <div name="Login_Form" className="form-signin">
             <h1 className="form-signin-heading">Disaster Resource Management</h1>
@@ -45,7 +46,7 @@ class LoginForm extends React.Component {
             <input className="form-control" type='password' name='password'
               placeholder='Password'
               onChange={this.handleChange} />
-            <button className="btn btn-lg btn-primary btn-block" onClick={this.handleClick}>Login</button>
+            <button className="btn btn-lg btn-primary btn-block modal-button" onClick={this.handleClick}>Login</button>
             <label>or</label>
             <Link to='/register'>Register</Link>
             <ErrorMessage reducer='auth' />

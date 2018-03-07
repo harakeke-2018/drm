@@ -65,7 +65,7 @@ class StockItem extends React.Component {
     const active = this.props.item
     const recentOrHide = !this.state.logIsVisible ? 'Recent' : 'Hide'
     return (
-      <div className='row'>
+      <div className='stocklist'>
         <div className='row' style={{textAlign: 'center'}}>
           <div className='three columns' style={{border: 'black solid 1px', margin: 'auto'}} onClick={this.openModals} >
             <p id='logIsOpen' style={{textAlign: 'center', margin: 'auto', padding: '2.5%'}}>{active.item}</p>
@@ -100,7 +100,7 @@ class StockItem extends React.Component {
 
         <Modal open={this.state.logIsOpen}
           onClose={this.closeModals} className='row'>
-          <table>
+          <table className="item-table">
             <tr>
               <th>Date</th>
               <th>Location</th>
@@ -122,7 +122,7 @@ class StockItem extends React.Component {
           <p>Add Stock</p>
           <h5>Quantity:</h5>
           <input onChange={this.handleChange} />
-          <button id='1' onClick={this.updateAndCloseModal}>Add</button>
+          <button id='1' className="modal-button" onClick={this.updateAndCloseModal}>Add</button>
 
         </Modal>
 
@@ -132,7 +132,7 @@ class StockItem extends React.Component {
           <p>Remove Stock</p>
           <h5>Quantity:</h5>
           <input onChange={this.handleChange} />
-          <button id='0' onClick={this.updateAndCloseModal}>Reduce</button>
+          <button id='0' className="modal-button" onClick={this.updateAndCloseModal}>Reduce</button>
         </Modal>
       </div>
     )

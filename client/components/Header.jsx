@@ -11,7 +11,7 @@ const Header = ({isAuthenticated}) => {
         <span className ='title'>Re:Source <img src="/lifesaver.png" alt="lifesaver image"></img>
         </span>
       </h1>
-      <div id="logout">
+      <div className = "logout" align="right">
         {isAuthenticated && <Logout />}
       </div>
     </div>
