@@ -8,7 +8,7 @@ import Log from './Log'
 let moment = require('moment');
 
 class StockItem extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       quantityChange: 0,
@@ -24,34 +24,35 @@ class StockItem extends React.Component {
     this.updateAndCloseModal = this.updateAndCloseModal.bind(this)
   }
 
-  toggleLog () {
+  toggleLog() {
     this.setState({
       logIsVisible: !this.state.logIsVisible
     })
   }
 
-  openModals (e) {
+  openModals(e) {
     this.setState({
       [e.target.id]: !this.state[e.target.id]
     })
   }
 
   // this could be tidier
-  closeModals () {
+  closeModals() {
     this.setState({
+      backgroundColor: 'white',
       logIsOpen: false,
       incrementIsOpen: false,
       decrementIsOpen: false
     })
   }
 
-  handleChange (e) {
+  handleChange(e) {
     this.setState({
       quantityChange: Number(e.target.value)
     })
   }
 
-  updateAndCloseModal (e) {
+  updateAndCloseModal(e) {
     const action = (Number(e.target.id)) ? 'increment' : 'decrement'
     this.props[action](this.props.item.locationStockId, this.state.quantityChange)
     const item = this.props.item
@@ -64,7 +65,7 @@ class StockItem extends React.Component {
     this.closeModals()
   }
 
-  render () {
+  render() {
     let a = moment('2018-03-07 02:23:32')
     // console.log(a)
     const active = this.props.item
@@ -74,13 +75,21 @@ class StockItem extends React.Component {
         return logItem
       }
     })
-
-
+    activeLogs.reverse()
+    
     return (
       <div className='stocklist'>
-        <div className='row' style={{textAlign: 'center'}}>
-          <div className='three columns' style={{border: 'black solid 1px', margin: 'auto'}} onClick={this.openModals} >
-            <p id='logIsOpen' style={{textAlign: 'center', margin: 'auto', padding: '2.5%'}}>{active.item}</p>
+        <div className='row' style={{ textAlign: 'center' }}>
+          <div className='three columns'
+            style={{
+              backgroundColor: this.state.backgroundColor,
+              border: 'black solid 1px',
+              margin: 'auto'
+            }}
+            onMouseEnter={() => this.setState({ backgroundColor: 'lightgrey' })}
+            onMouseLeave={() => this.setState({ backgroundColor: 'white' })}
+            onClick={this.openModals} >
+            <p id='logIsOpen' style={{ textAlign: 'center', margin: 'auto', padding: '2.5%' }}>{active.item}</p>
           </div>
           <p className='three columns' style={{ textAlign: 'center', fontWeight: 'bold', margin: 'auto' }}>Stock: {active.quantity}</p>
 
@@ -98,15 +107,13 @@ class StockItem extends React.Component {
                   <th>Location</th>
                   <th>Stock Change</th>
                 </tr>
-                {console.log(activeLogs)}
-                  {activeLogs.map((logItem, id) => {
-                                  logItem.updated_at = moment(logItem.updated_at).format('MMMM Do YYYY, h:mm a')
-
+                {activeLogs.map((logItem, id) => {
                   if (id < 3) {
-                    return <Log key={id} item={logItem} />
+                    return <Log item={logItem} />
                   }
                 })}
               </table>
+              <p></p>
             </div>}
         </div>
 
